@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Mua</string>
+
+    <!--navigation drawer item-->
+    <string name="drawer_item_sync">同步</string>
+    <string name="drawer_item_wordcloud">词云</string>
+    <string name="drawer_item_theme_switch">主题</string>
+    <string name="drawer_item_help">帮助</string>
+    <string name="drawer_item_settings">设置</string>
+
+    <!--drawer toggle-->
+    <string name="toggle_drawer_open">Open Drawer</string>
+    <string name="toggle_drawer_close">Close Drawer</string>
+
+    <!--toolbar menu-->
+    <string name="toolbar_menu_search">搜索</string>
+    <string name="toolbar_menu_sort">排序</string>
+    <string name="toolbar_menu_show_option">查看选项</string>
+    <!--search hint-->
+    <string name="search_hint">输入关键词搜索</string>
 </resources>
