@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item android:id="@+id/sync"
+        android:icon="@drawable/ic_sync"
+        android:title="@string/drawer_item_sync"/>
+    <item android:id="@+id/word_cloud"
+        android:icon="@drawable/ic_cloud"
+        android:title="@string/drawer_item_wordcloud"/>
+    <item android:id="@+id/theme_switch"
+        android:icon="@drawable/ic_color_lens"
+        android:title="@string/drawer_item_theme_switch"/>
+    <item android:id="@+id/help"
+        android:icon="@drawable/ic_help"
+        android:title="@string/drawer_item_help"/>
+    <item android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/drawer_item_settings"/>
 </menu>
