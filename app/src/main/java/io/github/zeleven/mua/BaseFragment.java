@@ -2,62 +2,52 @@ package io.github.zeleven.mua;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.BindString;
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
-    protected AppCompatActivity appCompatActivity;
-    protected boolean displayHomeAsUpEnabled = true;
-    @BindString(R.string.app_name)
-    protected String toolbarTitle;
-    protected String fragmentToolbarTitle;
-    protected ActionBar actionBar;
-    protected Toolbar toolbar;
+    protected AppCompatActivity context; // context object
+    protected View view; // fragment view object
+
+    // If true, set back arrow in toolbar.
+    protected boolean setDisplayHomeAsUpEnabled = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
+        view = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, view);
-        appCompatActivity = (AppCompatActivity) getActivity();
-        actionBar = appCompatActivity.getSupportActionBar();
+        context = (AppCompatActivity) getActivity();
         initView();
         return view;
     }
 
+    /**
+     * Get resource id of layout
+     * @return resource id
+     */
     public abstract int getLayoutId();
 
-    public void initView() {
-        setHasOptionsMenu(false);
-        if (displayHomeAsUpEnabled) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            toolbar = (Toolbar) appCompatActivity.findViewById(R.id.toolbar);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    appCompatActivity.onBackPressed();
-                }
-            });
-        }
-        if (fragmentToolbarTitle != null) {
-            actionBar.setTitle(fragmentToolbarTitle);
-        }
-    }
+    /**
+     * Get string resource id
+     * @return string resource id
+     */
+    public abstract int getTitleResId();
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (displayHomeAsUpEnabled) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
+    /**
+     * Init view component
+     */
+    public void initView() {
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle(getTitleResId());
+        context.setSupportActionBar(toolbar);
+        if (setDisplayHomeAsUpEnabled) {
+            context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        actionBar.setTitle(toolbarTitle);
-        setHasOptionsMenu(true);
     }
 }
