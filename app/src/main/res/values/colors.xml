@@ -2,9 +2,13 @@
 <resources>
     <color name="colorPrimary">#fff</color>
     <color name="colorPrimaryDark">#FFFFF7</color>
-    <color name="colorAccent">#16a085</color>
+    <color name="colorAccent">#14a056</color>
 
     <color name="white">@android:color/white</color>
     <color name="semi_transparent_white">#bbFFFFFF</color>
     <color name="black_semi_transparent">#B2000000</color>
+
+    <!--floating action button-->
+    <color name="color_normal">@color/colorAccent</color>
+    <color name="color_pressed">#0f8245</color>
 </resources>
