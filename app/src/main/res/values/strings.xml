@@ -8,6 +8,10 @@
     <string name="drawer_item_help">帮助</string>
     <string name="drawer_item_settings">设置</string>
 
+    <!--cancel and ok-->
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+
     <!--drawer toggle-->
     <string name="toggle_drawer_open">Open Drawer</string>
     <string name="toggle_drawer_close">Close Drawer</string>
@@ -15,7 +19,19 @@
     <!--toolbar menu-->
     <string name="toolbar_menu_search">搜索</string>
     <string name="toolbar_menu_sort">排序</string>
+    <!--sort options-->
+    <string name="create_time_sort">按创建时间</string>
+    <string name="modify_time_sort">按修改时间</string>
+    <string name="title_sort">按标题</string>
     <string name="toolbar_menu_show_option">查看选项</string>
+    <!--show options-->
+    <string name="show_image">显示缩略图</string>
+    <string name="show_digest">显示摘要</string>
     <!--search hint-->
     <string name="search_hint">输入关键词搜索</string>
+
+    <!--floating action button menu-->
+    <string name="type_markdown">Markdown</string>
+    <string name="type_plain_text">纯文本</string>
+    <string name="type_code">代码</string>
 </resources>
