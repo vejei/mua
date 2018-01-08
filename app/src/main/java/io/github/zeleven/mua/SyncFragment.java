@@ -1,6 +1,9 @@
 package io.github.zeleven.mua;
 
+import butterknife.BindString;
+
 public class SyncFragment extends BaseFragment {
+    @BindString(R.string.drawer_item_sync) String TITLE;
 
     @Override
     public int getLayoutId() {
@@ -8,12 +11,8 @@ public class SyncFragment extends BaseFragment {
     }
 
     @Override
-    public int getTitleResId() {
-        return R.string.drawer_item_sync;
-    }
-
-    @Override
     public void initView() {
+        toolbarTitle = TITLE;
         super.initView();
     }
 }
