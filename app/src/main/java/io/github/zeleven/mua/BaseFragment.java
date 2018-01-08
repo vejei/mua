@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
     protected AppCompatActivity context; // context object
     protected View view; // fragment view object
+    protected Toolbar toolbar;
+    protected String toolbarTitle;
 
     // If true, set back arrow in toolbar.
     protected boolean setDisplayHomeAsUpEnabled = true;
@@ -34,17 +36,13 @@ public abstract class BaseFragment extends Fragment {
     public abstract int getLayoutId();
 
     /**
-     * Get string resource id
-     * @return string resource id
-     */
-    public abstract int getTitleResId();
-
-    /**
      * Init view component
      */
     public void initView() {
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setTitle(getTitleResId());
+        toolbar = view.findViewById(R.id.toolbar);
+        if (toolbarTitle != null) {
+            toolbar.setTitle(toolbarTitle);
+        }
         context.setSupportActionBar(toolbar);
         if (setDisplayHomeAsUpEnabled) {
             context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
