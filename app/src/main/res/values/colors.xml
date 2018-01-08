@@ -5,6 +5,8 @@
     <color name="colorAccent">#14a056</color>
 
     <color name="white">@android:color/white</color>
+    
+    <!--floating action button menu label background-->
     <color name="semi_transparent_white">#bbFFFFFF</color>
     <color name="black_semi_transparent">#B2000000</color>
 
