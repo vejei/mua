@@ -4,15 +4,19 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,17 +25,28 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class FileListFragment extends BaseFragment {
-    private FrameLayout fabMenuContainer;
-    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.file_list) RecyclerView fileListRecyclerView;
+    @BindView(R.id.fab_menu_container) FrameLayout fabMenuContainer;
+    @BindView(R.id.fab_menu) FloatingActionsMenu fabMenu;
+    @BindView(R.id.create_markdown_btn) FloatingActionButton createMarkdownBtn;
     @BindView(R.id.navigation_view) NavigationView navigationView;
+
+    @BindString(R.string.app_name) String appName;
+    String rootDir;
 
     @Override
     public int getLayoutId() {
@@ -39,43 +54,41 @@ public class FileListFragment extends BaseFragment {
     }
 
     @Override
-    public int getTitleResId() {
-        return R.string.app_name;
-    }
-
-    @Override
     public void initView() {
+        toolbarTitle = appName;
         setDisplayHomeAsUpEnabled = false;
         super.initView();
-        setFABMenu();
+        setFabMenu();
         setHasOptionsMenu(true);
         setDrawerToggle();
         setNavigationViewItemListener();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        fabMenuContainer.setVisibility(View.GONE);
+//        readAppFiles();
+        rootDir = Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + appName;
+        ArrayList<Object> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(new MarkdownFile());
+        }
+        FilesAdapter adapter = new FilesAdapter(list);
+        fileListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        fileListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        fileListRecyclerView.addItemDecoration(new DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL));
+        fileListRecyclerView.setAdapter(adapter);
     }
 
     /**
-     * Set visibility to VISIBLE for floating action button menu, and set listener for the menu.
-     * If the button menu expanded, change background color for menu container.
-     * Otherwise, change background to transparent.
+     *  Set visibility to VISIBLE for floating action button menu, and set listener for the menu.
+     *  If the button menu expanded, change background color for menu container.
+     *  Otherwise, change background to transparent.
      */
-    public void setFABMenu() {
-        fabMenuContainer = (FrameLayout) context
-                .findViewById(R.id.fab_menu_container);
+    public void setFabMenu() {
         fabMenuContainer.setVisibility(View.VISIBLE);
-        FloatingActionsMenu fabMenu = (FloatingActionsMenu) context
-                .findViewById(R.id.fab_menu);
         fabMenu.setOnFloatingActionsMenuUpdateListener(
                 new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
             @Override
             public void onMenuExpanded() {
                 fabMenuContainer.setBackgroundColor(ContextCompat.getColor(context,
-                        R.color.white));
+                        R.color.semi_transparent_white));
             }
 
             @Override
@@ -89,11 +102,10 @@ public class FileListFragment extends BaseFragment {
      * Set toggle for drawer in toolbar.
      */
     public void setDrawerToggle() {
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(
-                context, drawerLayout, toolbar, R.string.toggle_drawer_open,
-                R.string.toggle_drawer_close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(context, drawerLayout,
+                toolbar, R.string.toggle_drawer_open, R.string.toggle_drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
     /**
@@ -103,7 +115,7 @@ public class FileListFragment extends BaseFragment {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()) {
                     case R.id.sync:
@@ -119,12 +131,8 @@ public class FileListFragment extends BaseFragment {
                         selectedFragment = new HelpFragment();
                         break;
                     case R.id.settings:
-                        context.getFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container, new SettingsFragment())
-                                .commit();
                         break;
                 }
-                drawerLayout.closeDrawer(Gravity.START);
                 navigationView.setCheckedItem(item.getItemId());
                 if (selectedFragment != null) {
                     context.getSupportFragmentManager().beginTransaction()
@@ -140,10 +148,9 @@ public class FileListFragment extends BaseFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.toolbar_menu, menu);
-
         MenuItem searchItem = menu.findItem(R.id.search);
-
-        SearchManager searchManager = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) context.getSystemService
+                (Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(context.getComponentName()));
     }
@@ -187,15 +194,15 @@ public class FileListFragment extends BaseFragment {
                 boolean[] checkedItems = {true, true};
                 builder.setMultiChoiceItems(R.array.show_options, checkedItems,
                         new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                if (isChecked) {
-                                    selectedItems.add(which);
-                                } else if (selectedItems.contains(which)) {
-                                    selectedItems.remove(which);
-                                }
-                            }
-                        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            selectedItems.add(which);
+                        } else if (selectedItems.contains(which)) {
+                            selectedItems.remove(which);
+                        }
+                    }
+                });
                 builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -213,5 +220,20 @@ public class FileListFragment extends BaseFragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private List<File> readAppFiles() {
+        String filesPath = Environment.getExternalStorageDirectory().getAbsoluteFile()
+                + "/" + appName;
+        return Arrays.asList(new File(filesPath).listFiles());
+    }
+
+    @OnClick(R.id.create_markdown_btn)
+    public void createMarkdownFile() {
+        fabMenu.collapse();
+        context.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new EditFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }
