@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.getbase.floatingactionbutton.FloatingActionsMenu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fab_menu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="15dp"
+    app:fab_addButtonColorNormal="@color/colorAccent"
+    app:fab_addButtonPlusIconColor="@android:color/white"
+    app:fab_addButtonSize="normal"
+    app:fab_labelStyle="@style/FloatingActionButtonMenuLabel"
+    app:fab_labelsPosition="left">
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_markdown_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_title="@string/type_markdown"
+        app:fab_size="mini"
+        app:fab_icon="@drawable/ic_markdown"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_plain_text_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_title="@string/type_plain_text"
+        app:fab_size="mini"
+        app:fab_icon="@drawable/ic_description"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_code_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_title="@string/type_code"
+        app:fab_size="mini"
+        app:fab_icon="@drawable/ic_code"/>
+
+</com.getbase.floatingactionbutton.FloatingActionsMenu>
