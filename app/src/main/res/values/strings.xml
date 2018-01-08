@@ -34,4 +34,13 @@
     <string name="type_markdown">Markdown</string>
     <string name="type_plain_text">纯文本</string>
     <string name="type_code">代码</string>
+
+    <!--edit area text hint-->
+    <string name="title_hint">标题</string>
+    <string name="content_hint">内容</string>
+
+    <!--edit fragment toolbar menu-->
+    <string name="undo">撤销</string>
+    <string name="redo">恢复</string>
+    <string name="save">保存</string>
 </resources>
