@@ -232,7 +232,7 @@ public class FileListFragment extends BaseFragment {
     public void createMarkdownFile() {
         fabMenu.collapse();
         context.getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new EditFragment())
+                .replace(R.id.fragment_container, new EditorFragment())
                 .addToBackStack(null)
                 .commit();
     }
