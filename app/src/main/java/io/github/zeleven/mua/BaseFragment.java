@@ -40,12 +40,14 @@ public abstract class BaseFragment extends Fragment {
      */
     public void initView() {
         toolbar = view.findViewById(R.id.toolbar);
-        if (toolbarTitle != null) {
-            toolbar.setTitle(toolbarTitle);
-        }
-        context.setSupportActionBar(toolbar);
-        if (setDisplayHomeAsUpEnabled) {
-            context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (toolbar != null) {
+            if (toolbarTitle != null) {
+                toolbar.setTitle(toolbarTitle);
+            }
+            context.setSupportActionBar(toolbar);
+            if (setDisplayHomeAsUpEnabled) {
+                context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 }
