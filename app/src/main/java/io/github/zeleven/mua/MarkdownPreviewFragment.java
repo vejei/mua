@@ -1,15 +1,8 @@
 package io.github.zeleven.mua;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
