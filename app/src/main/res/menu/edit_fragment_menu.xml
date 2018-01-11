@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/undo"
+        android:title="@string/undo"
+        android:icon="@drawable/ic_undo"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+    <item android:id="@+id/redo"
+        android:title="@string/redo"
+        android:icon="@drawable/ic_redo"
+        android:orderInCategory="2"
+        app:showAsAction="always" />
+    <item android:id="@+id/preview"
+        android:title="@string/preview"
+        android:orderInCategory="5"/>
+</menu>
