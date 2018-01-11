@@ -2,6 +2,9 @@ package io.github.zeleven.mua;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,6 +25,7 @@ public class EditFragment extends BaseFragment {
         toolbarTitle = "";
         super.initView();
         addListenerForInput();
+        setHasOptionsMenu(true);
     }
 
     public void addListenerForInput() {
@@ -49,5 +53,22 @@ public class EditFragment extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.edit_fragment_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.undo:
+                break;
+            case R.id.redo:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
