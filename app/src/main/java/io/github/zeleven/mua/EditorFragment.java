@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import butterknife.BindView;
 
@@ -19,8 +23,9 @@ public class EditorFragment extends BaseFragment {
     public void initView() {
         toolbarTitle = "";
         super.initView();
+        setHasOptionsMenu(true);
         final ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(
-                context.getSupportFragmentManager());
+                getChildFragmentManager());
         editorViewPager.setAdapter(adapter);
         editorViewPager.setCurrentItem(0);
     }
@@ -47,4 +52,38 @@ public class EditorFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.editor_fragment_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save:
+                // save file and toast message for user
+                // save file operation
+
+                // toast
+                Toast.makeText(context, R.string.saved, Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.md_help_docs:
+                // open markdown docs
+                context.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new MarkdownCheatsheetFragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.preview:
+                // switch to preview page
+                editorViewPager.setCurrentItem(1, true);
+                break;
+            case R.id.edit:
+                // switch to edit page
+                editorViewPager.setCurrentItem(0, true);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
