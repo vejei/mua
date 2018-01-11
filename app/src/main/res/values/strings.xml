@@ -43,4 +43,13 @@
     <string name="undo">撤销</string>
     <string name="redo">恢复</string>
     <string name="save">保存</string>
+    <string name="md_docs">Markdown 语法</string>
+    <string name="preview">预览</string>
+    <string name="edit">编辑</string>
+
+    <!--Toast-->
+    <string name="saved">已保存</string>
+
+    <!--markdown docs fragment toolbar title-->
+    <string name="docs_fragment_tooblar_title">Markdown 语法手册</string>
 </resources>
