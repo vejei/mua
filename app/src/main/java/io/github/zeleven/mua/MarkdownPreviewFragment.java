@@ -1,5 +1,7 @@
 package io.github.zeleven.mua;
 
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -23,6 +25,7 @@ public class MarkdownPreviewFragment extends BaseFragment {
     public void initView() {
         super.initView();
         setWebView();
+        setHasOptionsMenu(true);
     }
 
     @Subscribe
@@ -64,5 +67,11 @@ public class MarkdownPreviewFragment extends BaseFragment {
         webView.setWebChromeClient(new WebChromeClient());
         webView.addJavascriptInterface(this, "handler");
         webView.loadUrl("file:///android_asset/markdown.html");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.preview_fragment_menu, menu);
     }
 }
