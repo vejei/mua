@@ -25,8 +25,8 @@
     <string name="title_sort">按标题</string>
     <string name="toolbar_menu_show_option">查看选项</string>
     <!--show options-->
-    <string name="show_image">显示缩略图</string>
     <string name="show_digest">显示摘要</string>
+    <string name="show_date">显示时间</string>
     <!--search hint-->
     <string name="search_hint">输入关键词搜索</string>
 
