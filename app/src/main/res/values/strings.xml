@@ -52,4 +52,29 @@
 
     <!--markdown docs fragment toolbar title-->
     <string name="docs_fragment_tooblar_title">Markdown 语法手册</string>
+
+    <!--preference-->
+    <string name="category_title_display">显示</string>
+    <string name="category_title_sync">同步</string>
+    <string name="category_title_feedback">使用反馈</string>
+    <string name="category_title_others">其它</string>
+
+    <string name="pref_summary_default">默认</string>
+    <string name="pref_title_language">语言</string>
+    <string name="pref_summary_language">跟随系统</string>
+    <string name="pref_title_drawer_header">左侧导航栏</string>
+    <string name="pref_title_sync">同步</string>
+    <string name="pref_summary_sync">自动同步</string>
+    <string name="pref_title_wifi_sync">仅在WIFI下同步</string>
+    <string name="pref_summary_wifi_sync">WIFI</string>
+    <string name="pref_title_feedback">意见反馈</string>
+    <string name="pref_title_bug_report">错误报告</string>
+    <string name="pref_title_rate">应用评分</string>
+    <string name="pref_title_check_update">检查更新</string>
+    <string name="pref_summary_current_version">当前版本 v1.0</string>
+    <string name="pref_title_about">关于</string>
+
+    <string name="mailto">mailto:</string>
+    <string name="issue_page">https://github.com/zeleven/</string>
+    <string name="market_link">market://details?id=</string>
 </resources>
