@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/category_title_display"
+        android:key="category_display">
+        <ListPreference android:key="language"
+            android:title="@string/pref_title_language"
+            android:summary="@string/pref_summary_language"
+            android:entries="@array/language_list"
+            android:entryValues="@array/language_list_value"
+            android:defaultValue="1"/>
+
+        <Preference android:key="drawer_header"
+            android:title="@string/pref_title_drawer_header"
+            android:summary="@string/pref_summary_default"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/category_title_sync"
+        android:key="category_sync">
+        <ListPreference android:key="sync"
+            android:title="@string/pref_title_sync"
+            android:summary="@string/pref_summary_sync"
+            android:entries="@array/sync_list"
+            android:entryValues="@array/sync_list_value"
+            android:defaultValue="1"/>
+        <CheckBoxPreference android:key="network"
+            android:title="@string/pref_title_wifi_sync"
+            android:summary="@string/pref_summary_wifi_sync"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/category_title_feedback"
+        android:key="category_feedback">
+        <Preference android:key="feedback"
+            android:title="@string/pref_title_feedback">
+            <intent android:action="android.intent.action.VIEW" android:data="@string/mailto">
+                <extra android:name="android.intent.extra.SUBJECT"
+                    android:value="@string/pref_title_feedback"/>
+            </intent>
+        </Preference>
+        <Preference app:key="bug_report"
+            android:title="@string/pref_title_bug_report">
+            <intent android:action="android.intent.action.VIEW" android:data="@string/issue_page"/>
+        </Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/category_title_others"
+        android:key="category_others">
+        <Preference android:key="rate"
+            android:title="@string/pref_title_rate">
+            <intent android:action="android.intent.action.VIEW" android:data="@string/market_link"/>
+        </Preference>
+        <Preference app:key="check_update"
+            android:title="@string/pref_title_check_update"
+            android:summary="@string/pref_summary_current_version"/>
+        <Preference android:key="about"
+            android:title="@string/pref_title_about" />
+    </PreferenceCategory>
+</PreferenceScreen>
