@@ -2,6 +2,7 @@ package io.github.zeleven.mua;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,20 +14,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
-    private List<Object> dataSet;
+    private List<File> dataSet;
     private AppCompatActivity context;
 
-    public FilesAdapter(List<Object> filesList) {
-        dataSet = filesList;
+    public FilesAdapter(List<File> filesList) {
+        dataSet = (filesList == null) ? new ArrayList<File>() : filesList;
     }
 
     @Override
@@ -41,20 +37,24 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        File file = dataSet.get(position);
-//        holder.fileName.setText(file.getName());
-//        holder.fileContent.setText(getFileContent(file));
-//        holder.fileDate.setText(getCreationTime(file.getAbsolutePath()).toString());
-//        holder.fileTypeName.setText("Markdown");
-        MarkdownFile md = (MarkdownFile) dataSet.get(position);
-        holder.fileName.setText(md.getName());
-        holder.fileContent.setText(md.getContent());
-        holder.fileDate.setText(md.getDate());
-        holder.fileTypeName.setText("Markdown");
+        final File file = dataSet.get(position);
+        final String fileName = file.getName();
+        holder.fileName.setText(fileName);
+
+        final StringBuilder content = getFileContent(file);
+        if (content.length() == 0) {
+            holder.fileContent.setVisibility(View.GONE);
+        } else {
+            holder.fileContent.setText(content);
+        }
+
+        holder.fileDate.setText(DateUtils.getRelativeTimeSpanString(file.lastModified(),
+                System.currentTimeMillis(), DateUtils.FORMAT_ABBREV_ALL));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // open detail fragment
+
             }
         });
     }
@@ -65,14 +65,13 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView fileName, fileContent, fileDate, fileTypeName;
+        TextView fileName, fileContent, fileDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
             fileName = itemView.findViewById(R.id.file_name);
             fileContent = itemView.findViewById(R.id.file_content);
             fileDate = itemView.findViewById(R.id.file_date);
-            fileTypeName = itemView.findViewById(R.id.file_type_name);
         }
     }
 
@@ -97,21 +96,5 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
             Log.e(getClass().getName(), e.getMessage());
         }
         return textContent;
-    }
-
-    /**
-     * Get creation time of file from specify file path.
-     * @param filePath absolute path of file.
-     * @return creation time fo file.
-     */
-    private FileTime getCreationTime(String filePath) {
-        Path path = Paths.get(filePath);
-        BasicFileAttributes attributes = null;
-        try {
-            attributes = Files.readAttributes(path, BasicFileAttributes.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return attributes.creationTime();
     }
 }
