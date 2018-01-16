@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import butterknife.BindView;
 
@@ -24,6 +23,10 @@ public class EditorFragment extends BaseFragment {
         toolbarTitle = "";
         super.initView();
         setHasOptionsMenu(true);
+        setViewPager();
+    }
+
+    public void setViewPager() {
         final ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(
                 getChildFragmentManager());
         editorViewPager.setAdapter(adapter);
@@ -61,13 +64,6 @@ public class EditorFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.save:
-                // save file and toast message for user
-                // save file operation
-
-                // toast
-                Toast.makeText(context, R.string.saved, Toast.LENGTH_SHORT).show();
-                break;
             case R.id.md_help_docs:
                 // open markdown docs
                 context.getSupportFragmentManager().beginTransaction()
