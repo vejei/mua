@@ -17,45 +17,52 @@
     <string name="toggle_drawer_close">Close Drawer</string>
 
     <!--toolbar menu-->
-    <string name="toolbar_menu_search">搜索</string>
-    <string name="toolbar_menu_sort">排序</string>
+    <string name="menu_item_search">搜索</string>
     <!--sort options-->
-    <string name="create_time_sort">按创建时间</string>
-    <string name="modify_time_sort">按修改时间</string>
-    <string name="title_sort">按标题</string>
-    <string name="toolbar_menu_show_option">查看选项</string>
+    <string name="menu_item_sort">排序</string>
+    <string name="choice_item_create_time_sort">按创建时间</string>
+    <string name="choice_item_modify_time_sort">按修改时间</string>
+    <string name="choice_item_title_sort">按标题</string>
     <!--show options-->
-    <string name="show_digest">显示摘要</string>
-    <string name="show_date">显示时间</string>
+    <string name="menu_item_show_option">查看选项</string>
+    <string name="choice_item_show_digest">显示摘要</string>
+    <string name="choice_item_show_date">显示时间</string>
     <!--search hint-->
     <string name="search_hint">输入关键词搜索</string>
-
-    <!--floating action button menu-->
-    <string name="type_markdown">Markdown</string>
-    <string name="type_plain_text">纯文本</string>
-    <string name="type_code">代码</string>
 
     <!--edit area text hint-->
     <string name="title_hint">标题</string>
     <string name="content_hint">内容</string>
 
     <!--edit fragment toolbar menu-->
-    <string name="undo">撤销</string>
-    <string name="redo">恢复</string>
-    <string name="save">保存</string>
-    <string name="md_docs">Markdown 语法</string>
-    <string name="preview">预览</string>
-    <string name="edit">编辑</string>
-
-    <!--Toast-->
-    <string name="saved">已保存</string>
+    <string name="menu_item_undo">撤销</string>
+    <string name="menu_item_redo">恢复</string>
+    <string name="menu_item_save">保存</string>
+    <string name="menu_item_docs">Markdown 语法</string>
+    <string name="menu_item_preview">预览</string>
+    <string name="menu_item_edit">编辑</string>
+    <string name="menu_item_statistics">统计</string>
+    <string name="menu_item_auto_save">自动保存</string>
+    <string name="menu_item_rename">重命名</string>
 
     <!--markdown docs fragment toolbar title-->
     <string name="docs_fragment_tooblar_title">Markdown 语法手册</string>
 
-    <!--preference-->
+    <!--preference key-->
+    <string name="pref_key_language">language</string>
+    <string name="pref_key_drawer_header">drawer_header</string>
+    <string name="pref_key_file_extension">file_extension</string>
+    <string name="pref_key_sync">sync</string>
+    <string name="pref_key_network">network</string>
+    <string name="pref_key_feedback">feedback</string>
+    <string name="pref_key_bug_report">bug_report</string>
+    <string name="pref_key_rating">rating</string>
+    <string name="pref_key_check_update">check_update</string>
+    <string name="pref_key_about">about</string>
+
+    <!--preference title and summary-->
     <string name="category_title_display">显示</string>
-    <string name="category_title_sync">同步</string>
+    <string name="category_title_storage_sync">存储与同步</string>
     <string name="category_title_feedback">使用反馈</string>
     <string name="category_title_others">其它</string>
 
@@ -63,6 +70,8 @@
     <string name="pref_title_language">语言</string>
     <string name="pref_summary_language">跟随系统</string>
     <string name="pref_title_drawer_header">左侧导航栏</string>
+    <string name="pref_title_file_extension">文件后缀</string>
+    <string name="pref_summary_file_extension">.md</string>
     <string name="pref_title_sync">同步</string>
     <string name="pref_summary_sync">自动同步</string>
     <string name="pref_title_wifi_sync">仅在WIFI下同步</string>
@@ -77,4 +86,37 @@
     <string name="mailto">mailto:</string>
     <string name="issue_page">https://github.com/zeleven/</string>
     <string name="market_link">market://details?id=</string>
+
+    <!--Toast message-->
+    <string name="message_saved">已保存</string>
+    <string name="message_file_exist">文件已存在，请输入新的标题</string>
+    <string name="message_title_empty">标题不能为空</string>
+
+    <!--language list preference item text-->
+    <string name="pref_array_item_system">跟随系统</string>
+    <string name="pref_array_item_chinese_t">繁体中文</string>
+    <string name="pref_array_item_chinese_s">简体中文</string>
+    <string name="pref_array_item_english">英文</string>
+
+    <!--sync list preference item text-->
+    <string name="pref_array_item_sync_auto">自动同步</string>
+    <string name="pref_array_item_sync_remind">提醒同步</string>
+    <string name="pref_array_item_sync_manual">手动同步</string>
+
+    <!--file extension list preference item text-->
+    <string name="pref_array_item_dot_md">.md</string>
+    <string name="pref_array_item_dot_markdown">.markdown</string>
+    <string name="pref_array_item_dot_mdown">.mdown</string>
+
+    <!--about fragment-->
+    <string name="app_describe">开源的Markdown编辑器</string>
+    <string name="app_version_text">当前版本</string>
+    <string name="app_version_number">1.0</string>
+    <string name="project_link">项目源码</string>
+    <string name="contact_me">联系作者</string>
+    <string name="bottom_text">Under MIT license.</string>
+
+    <!--test content-->
+    <string name="test_long_title">这是一个标题，一个非常长的标题，长到看不到尽头，真的特别长，后面的根本看不到，后面还有很多内容你根本就看不到的，不信再看</string>
+    <string name="test_long_content">这是一段文章摘要，一段非常长的文章摘要，一样是长到没有尽头，到底是有多长呢，你继续往后看就知道有多长了，我不知道写什么了，就这样看看可不可以吧，要是不可以那就再长一点</string>
 </resources>
