@@ -17,18 +17,11 @@
                 tables: true,
                 breaks: false,
                 pedantic: false,
-                sanitize: false,
+                sanitize: true,
                 smartLists: true,
-                smartypants: false,
-                highlight: function (code) {
-                    return hljs.highlightAuto(code).value;
-                }
+                smartypants: false
             });
             document.getElementById("content").innerHTML = marked(mdContnet);
-            parseDone();
-        }
-        function parseDone() {
-            window.handler.onHTMLGenerated();
         }
     </script>
 </body>
