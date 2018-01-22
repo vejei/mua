@@ -5,15 +5,13 @@ import android.view.MenuInflater;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 
-public class MarkdownPreviewFragment extends BaseFragment {
-    @BindView(R.id.title) TextView title;
+public class MarkdownPreviewFragment extends BaseEditorFragment {
     @BindView(R.id.markdown_content) WebView webView;
 
     @Override
@@ -24,22 +22,21 @@ public class MarkdownPreviewFragment extends BaseFragment {
     @Override
     public void initView() {
         super.initView();
-        setWebView();
         setHasOptionsMenu(true);
-    }
 
-    @Subscribe
-    public void onTitleChangedEvent(TitleChangedEvent event) {
-        title.setText(event.title);
+        configWebView();
+        if (fileContent != null) {
+            String content = fileContent.replace("\n", "\\n").replace("\"", "\\\"")
+                    .replace("'", "\\'");
+            webView.loadUrl("javascript:parseMarkdown(\"" + content + "\");");
+        }
     }
 
     @Subscribe
     public void onContentChangedEvent(ContentChangedEvent event) {
-        String content = event.content.replace("\n", "\\n").replace("\"", "\\\"")
-                .replace("'", "\\'");
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            webView.evaluateJavascript("parseMarkdown(\"" + content + "\");", null);
-        } else {
+        if (event.content != null && !event.content.equals("")) {
+            String content = event.content.replace("\n", "\\n").replace("\"", "\\\"")
+                    .replace("'", "\\'");
             webView.loadUrl("javascript:parseMarkdown(\"" + content + "\");");
         }
     }
@@ -56,22 +53,20 @@ public class MarkdownPreviewFragment extends BaseFragment {
         super.onStop();
     }
 
-    public void setWebView() {
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webSettings.setDefaultFontSize(16);
-
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.addJavascriptInterface(this, "handler");
-        webView.loadUrl("file:///android_asset/markdown.html");
-    }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.preview_fragment_menu, menu);
+    }
+
+    public void configWebView() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+
+        webView.setVerticalScrollBarEnabled(false);
+        webView.setHorizontalScrollBarEnabled(false);
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.loadUrl("file:///android_asset/markdown.html");
     }
 }
