@@ -3,27 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/category_title_display"
         android:key="category_display">
-        <ListPreference android:key="language"
+        <ListPreference android:key="@string/pref_key_language"
             android:title="@string/pref_title_language"
             android:summary="@string/pref_summary_language"
             android:entries="@array/language_list"
             android:entryValues="@array/language_list_value"
             android:defaultValue="1"/>
 
-        <Preference android:key="drawer_header"
+        <Preference android:key="@string/pref_key_drawer_header"
             android:title="@string/pref_title_drawer_header"
             android:summary="@string/pref_summary_default"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/category_title_sync"
-        android:key="category_sync">
-        <ListPreference android:key="sync"
+    <PreferenceCategory android:title="@string/category_title_storage_sync"
+        android:key="category_storage_sync">
+        <ListPreference android:key="@string/pref_key_file_extension"
+            android:title="@string/pref_title_file_extension"
+            android:summary="@string/pref_summary_file_extension"
+            android:entries="@array/extension_list"
+            android:entryValues="@array/extension_list_value"
+            android:defaultValue="1"/>
+        <ListPreference android:key="@string/pref_key_sync"
             android:title="@string/pref_title_sync"
             android:summary="@string/pref_summary_sync"
             android:entries="@array/sync_list"
             android:entryValues="@array/sync_list_value"
             android:defaultValue="1"/>
-        <CheckBoxPreference android:key="network"
+        <CheckBoxPreference android:key="@string/pref_key_network"
             android:title="@string/pref_title_wifi_sync"
             android:summary="@string/pref_summary_wifi_sync"
             android:defaultValue="true"/>
@@ -31,14 +37,14 @@
 
     <PreferenceCategory android:title="@string/category_title_feedback"
         android:key="category_feedback">
-        <Preference android:key="feedback"
+        <Preference android:key="@string/pref_key_feedback"
             android:title="@string/pref_title_feedback">
             <intent android:action="android.intent.action.VIEW" android:data="@string/mailto">
                 <extra android:name="android.intent.extra.SUBJECT"
                     android:value="@string/pref_title_feedback"/>
             </intent>
         </Preference>
-        <Preference app:key="bug_report"
+        <Preference app:key="@string/pref_key_bug_report"
             android:title="@string/pref_title_bug_report">
             <intent android:action="android.intent.action.VIEW" android:data="@string/issue_page"/>
         </Preference>
@@ -46,14 +52,14 @@
 
     <PreferenceCategory android:title="@string/category_title_others"
         android:key="category_others">
-        <Preference android:key="rate"
+        <Preference android:key="@string/pref_key_rating"
             android:title="@string/pref_title_rate">
             <intent android:action="android.intent.action.VIEW" android:data="@string/market_link"/>
         </Preference>
-        <Preference app:key="check_update"
+        <Preference app:key="@string/pref_key_check_update"
             android:title="@string/pref_title_check_update"
             android:summary="@string/pref_summary_current_version"/>
-        <Preference android:key="about"
+        <Preference android:key="@string/pref_key_about"
             android:title="@string/pref_title_about" />
     </PreferenceCategory>
 </PreferenceScreen>
