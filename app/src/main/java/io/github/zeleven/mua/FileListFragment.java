@@ -2,6 +2,7 @@ package io.github.zeleven.mua;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +20,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindString;
@@ -137,6 +141,58 @@ public class FileListFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        switch (item.getItemId()) {
+            case R.id.sort:
+                // open sort options dialog
+                builder.setTitle(R.string.menu_item_sort);
+                builder.setSingleChoiceItems(R.array.sort_options, 0,
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+                break;
+            case R.id.show_options:
+                // open show options settings dialog
+                final ArrayList selectedItems = new ArrayList();
+                builder.setTitle(R.string.menu_item_show_option);
+                boolean[] checkedItems = {true, true};
+                builder.setMultiChoiceItems(R.array.show_options, checkedItems,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            selectedItems.add(which);
+                        } else if (selectedItems.contains(which)) {
+                            selectedItems.remove(which);
+                        }
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do something here
+                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.show();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

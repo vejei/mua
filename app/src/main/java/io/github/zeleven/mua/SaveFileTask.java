@@ -26,14 +26,14 @@ public class SaveFileTask extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... params) {
         boolean result;
         if (TextUtils.isEmpty(fileName)) {
-            toastMessage(R.string.toast_message_file_name_can_not_empty);
+            toastMessage(R.string.toast_file_name_can_not_empty);
             result = false;
         } else {
             result = FileUtils.saveFile(filePath, content);
             if (result) {
-                toastMessage(R.string.message_saved);
+                toastMessage(R.string.toast_saved);
             } else {
-                toastMessage(R.string.message_file_exist);
+                toastMessage(R.string.toast_file_name_exists);
             }
         }
         return result;
