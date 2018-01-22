@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/search"
         android:icon="@drawable/ic_search"
-        android:title="@string/toolbar_menu_search"
+        android:title="@string/menu_item_search"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item android:id="@+id/sort"
-        android:title="@string/toolbar_menu_sort"/>
+        android:title="@string/menu_item_sort"/>
     <item android:id="@+id/show_options"
-        android:title="@string/toolbar_menu_show_option"/>
+        android:title="@string/menu_item_show_option"/>
 </menu>
