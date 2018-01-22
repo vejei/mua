@@ -3,19 +3,17 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="github-markdown.css">
-    <link rel="stylesheet" type="text/css" href="github-gist.css">
 </head>
 <body>
     <div id="content" class="markdown-body"></div>
     <script type="text/javascript" src="marked.min.js"></script>
-    <script type="text/javascript" src="highlight.js"></script>
     <script type="text/javascript">
         function parseMarkdown(mdContnet) {
             marked.setOptions({
                 renderer: new marked.Renderer(),
                 gfm: true,
                 tables: true,
-                breaks: false,
+                breaks: true,
                 pedantic: false,
                 sanitize: true,
                 smartLists: true,
