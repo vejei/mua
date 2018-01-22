@@ -9,7 +9,7 @@ import butterknife.BindView;
 
 public class MarkdownCheatsheetFragment extends BaseFragment {
     @BindView(R.id.docs_webview) WebView docsWebView;
-    @BindString(R.string.docs_fragment_tooblar_title) String TITLE;
+    @BindString(R.string.docs_fragment_tb_title) String TITLE;
 
     @Override
     public int getLayoutId() {
