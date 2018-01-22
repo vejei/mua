@@ -37,8 +37,8 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
     @BindView(R.id.link) ImageButton linkBtn;
     @BindView(R.id.image) ImageButton imageBtn;
 
-    @BindString(R.string.editor_dialog_item_local_image) String localImage;
-    @BindString(R.string.editor_dialog_item_internet_image) String internetImage;
+    @BindString(R.string.dialog_item_text_local_image) String localImage;
+    @BindString(R.string.dialog_item_text_internet_image) String internetImage;
 
     private String rootPath;
     private EditorAction editorAction;
@@ -98,7 +98,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
             case R.id.save:
                 if (!saved) {
                     AlertDialog.Builder saveDialog = new AlertDialog.Builder(context);
-                    saveDialog.setTitle(R.string.editor_dialog_title_save_file);
+                    saveDialog.setTitle(R.string.dialog_title_save_file);
 
                     LayoutInflater inflater = context.getLayoutInflater();
                     final View view = inflater.inflate(R.layout.dialog_save_file, null);
@@ -111,13 +111,12 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                             dialog.cancel();
                         }
                     });
-                    saveDialog.setPositiveButton("保存", new DialogInterface.OnClickListener() {
+                    saveDialog.setPositiveButton(R.string.dialog_btn_save,
+                            new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fileName = fileNameET.getText().toString();
                             filePath = rootPath + fileName + ".md";
-//                            Toast.makeText(context, fileName, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(context, filePath, Toast.LENGTH_SHORT).show();
                             new SaveFileTask(context, filePath, fileName,
                                     contentInput.getText().toString(), new SaveFileTask.Response() {
                                 @Override
@@ -136,7 +135,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
             case R.id.rename:
                 if (saved) {
                     AlertDialog.Builder renameDialog = new AlertDialog.Builder(context);
-                    renameDialog.setTitle("重命名");
+                    renameDialog.setTitle(R.string.dialog_title_rename_file);
 
                     LayoutInflater inflater = context.getLayoutInflater();
                     View view = inflater.inflate(R.layout.dialog_save_file, null);
@@ -152,7 +151,8 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                             dialog.cancel();
                         }
                     });
-                    renameDialog.setPositiveButton("重命名", new DialogInterface.OnClickListener() {
+                    renameDialog.setPositiveButton(R.string.dialog_btn_rename,
+                            new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fileName = fileNameET.getText().toString();
@@ -222,7 +222,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
 
                             // insert image from internet
                             AlertDialog.Builder inputDialog = new AlertDialog.Builder(context);
-                            inputDialog.setTitle(R.string.editor_dialog_title_insert_image);
+                            inputDialog.setTitle(R.string.dialog_title_insert_image);
                             LayoutInflater inflater = context.getLayoutInflater();
                             final View dialogView = inflater.inflate(R.layout.dialog_insert_image, null);
                             inputDialog.setView(dialogView);
@@ -234,7 +234,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                                 }
                             });
 
-                            inputDialog.setPositiveButton(R.string.editor_dialog_btn_insert,
+                            inputDialog.setPositiveButton(R.string.dialog_btn_insert,
                                     new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -272,7 +272,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
             if (resultCode == context.RESULT_OK) {
                 final Uri selectedImage = data.getData();
                 AlertDialog.Builder inputDialog = new AlertDialog.Builder(context);
-                inputDialog.setTitle(R.string.editor_dialog_title_insert_image);
+                inputDialog.setTitle(R.string.dialog_title_insert_image);
 
                 LayoutInflater inflater = context.getLayoutInflater();
                 View view = inflater.inflate(R.layout.dialog_insert_image, null);
@@ -289,7 +289,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                             }
                         });
 
-                inputDialog.setPositiveButton(R.string.editor_dialog_btn_insert,
+                inputDialog.setPositiveButton(R.string.dialog_btn_insert,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -299,7 +299,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                         });
                 inputDialog.show();
             } else {
-                Toast.makeText(context, R.string.editor_toast_does_not_select, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.toast_does_not_select, Toast.LENGTH_SHORT).show();
             }
         }
     }
