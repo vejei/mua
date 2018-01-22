@@ -36,11 +36,11 @@ public class EditorFragment extends BaseEditorFragment {
     public void getArgs() {
         Bundle args = getArguments();
         if (args != null) {
-            fromFile = args.getBoolean("FROM_FILE");
+            fromFile = args.getBoolean(Constants.BUNDLE_KEY_FROM_FILE);
             if (fromFile) {
-                saved = args.getBoolean("SAVED");
-                fileName = args.getString("FILE_NAME");
-                filePath = args.getString("FILE_PATH");
+                saved = args.getBoolean(Constants.BUNDLE_KEY_SAVED);
+                fileName = args.getString(Constants.BUNDLE_KEY_FILE_NAME);
+                filePath = args.getString(Constants.BUNDLE_KEY_FILE_PATH);
                 if (filePath != null) {
                     fileContent = FileUtils.readContent(filePath);
                 }
