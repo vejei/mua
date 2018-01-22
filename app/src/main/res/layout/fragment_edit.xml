@@ -1,46 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_area"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/edit_area"
+    <EditText
+        android:id="@+id/content_input"
+        android:textColor="#333"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/title_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:gravity="top"
-            android:textSize="18sp"
-            android:textColor="#111"
-            android:hint="@string/title_hint"
-            android:inputType="text"
-            android:padding="16dp"
-            android:scrollHorizontally="false"
-            android:maxLines="1"/>
-
-        <View android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#B6B6B6"/>
-
-        <EditText
-            android:id="@+id/content_input"
-            android:textColor="#333"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00000000"
-            android:gravity="top"
-            android:hint="@string/content_hint"
-            android:inputType="textMultiLine|textLongMessage"
-            android:padding="16dp"
-            android:scrollHorizontally="false"
-            android:scrollbars="vertical"/>
-
-    </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:inputType="textMultiLine|textLongMessage"
+        android:padding="16dp"
+        android:scrollHorizontally="false"
+        android:scrollbars="none"
+        android:layout_marginBottom="48dp"
+        android:background="#00000000"/>
+    <include layout="@layout/editor_actionbar"/>
+</RelativeLayout>
