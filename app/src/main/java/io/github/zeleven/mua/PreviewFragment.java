@@ -13,31 +13,24 @@ import butterknife.BindView;
 
 public class PreviewFragment extends BaseEditorFragment {
     @BindView(R.id.markdown_content) WebView webView;
+    private boolean pageFinish = false;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_markdown_preview;
+        return R.layout.fragment_preview;
     }
 
     @Override
     public void initView() {
         super.initView();
         setHasOptionsMenu(true);
-
         configWebView();
-        if (fileContent != null) {
-            String content = fileContent.replace("\n", "\\n").replace("\"", "\\\"")
-                    .replace("'", "\\'");
-            webView.loadUrl("javascript:parseMarkdown(\"" + content + "\");");
-        }
     }
 
     @Subscribe
     public void onContentChangedEvent(ContentChangedEvent event) {
         if (event.content != null && !event.content.equals("")) {
-            String content = event.content.replace("\n", "\\n").replace("\"", "\\\"")
-                    .replace("'", "\\'");
-            webView.loadUrl("javascript:parseMarkdown(\"" + content + "\");");
+            loadMarkdown(event.content);
         }
     }
 
@@ -66,7 +59,26 @@ public class PreviewFragment extends BaseEditorFragment {
 
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
-        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    pageFinish = true;
+                }
+            }
+        });
         webView.loadUrl("file:///android_asset/markdown.html");
+    }
+
+    public void loadMarkdown(String markdown) {
+        if (pageFinish) {
+            String content = markdown.replace("\n", "\\n").replace("\"", "\\\"")
+                    .replace("'", "\\'");
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                webView.evaluateJavascript("javascript:parseMarkdown(\"" + content + "\");", null);
+            } else {
+                webView.loadUrl("javascript:parseMarkdown(\"" + content + "\");");
+            }
+        }
     }
 }
