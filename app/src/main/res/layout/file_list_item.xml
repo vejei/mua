@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:background="?android:selectableItemBackground">
+
+    <LinearLayout
+        android:id="@+id/main_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/file_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@string/test_long_title"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/file_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:text="@string/test_long_content"
+            android:textSize="14sp"
+            android:textColor="#aaa"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/file_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-01-05"
+        android:textSize="14sp"
+        android:layout_below="@id/main_content"
+        android:layout_marginTop="10dp"
+        android:textColor="#aaa"/>
+
+</RelativeLayout>
