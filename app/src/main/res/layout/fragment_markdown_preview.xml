@@ -8,23 +8,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:gravity="top"
-            android:textSize="18sp"
-            android:textColor="#111"
-            android:padding="16dp"
-            android:scrollHorizontally="false"
-            android:maxLines="1"/>
-
-        <View android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#B6B6B6"/>
-
         <WebView
             android:id="@+id/markdown_content"
             android:layout_width="match_parent"
