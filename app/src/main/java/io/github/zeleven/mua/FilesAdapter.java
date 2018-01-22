@@ -1,5 +1,7 @@
 package io.github.zeleven.mua;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -54,7 +56,17 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 // open detail fragment
-
+                Fragment fragment = new EditorFragment();
+                Bundle args = new Bundle();
+                args.putBoolean("SAVED", true);
+                args.putBoolean("FROM_FILE", true);
+                args.putString("FILE_NAME", FileUtils.stripExtension(file.getName()));
+                args.putString("FILE_PATH", file.getAbsolutePath());
+                fragment.setArguments(args);
+                context.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
