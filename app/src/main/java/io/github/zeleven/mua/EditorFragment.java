@@ -86,7 +86,7 @@ public class EditorFragment extends BaseEditorFragment {
             if (position == 0) {
                 fragment = new EditFragment();
             } else {
-                fragment = new MarkdownPreviewFragment();
+                fragment = new PreviewFragment();
             }
             return fragment;
         }
