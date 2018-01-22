@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 
-public class MarkdownPreviewFragment extends BaseEditorFragment {
+public class PreviewFragment extends BaseEditorFragment {
     @BindView(R.id.markdown_content) WebView webView;
 
     @Override
