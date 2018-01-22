@@ -58,10 +58,11 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
                 // open detail fragment
                 Fragment fragment = new EditorFragment();
                 Bundle args = new Bundle();
-                args.putBoolean("SAVED", true);
-                args.putBoolean("FROM_FILE", true);
-                args.putString("FILE_NAME", FileUtils.stripExtension(file.getName()));
-                args.putString("FILE_PATH", file.getAbsolutePath());
+                args.putBoolean(Constants.BUNDLE_KEY_SAVED, true);
+                args.putBoolean(Constants.BUNDLE_KEY_FROM_FILE, true);
+                args.putString(Constants.BUNDLE_KEY_FILE_NAME,
+                        FileUtils.stripExtension(file.getName()));
+                args.putString(Constants.BUNDLE_KEY_FILE_PATH, file.getAbsolutePath());
                 fragment.setArguments(args);
                 context.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
