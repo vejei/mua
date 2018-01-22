@@ -1,17 +1,22 @@
 package io.github.zeleven.mua;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 
-public class EditorFragment extends BaseFragment {
+public class EditorFragment extends BaseEditorFragment {
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.editor_viewpager) ViewPager editorViewPager;
+
+    private int position = 0;
 
     @Override
     public int getLayoutId() {
@@ -20,17 +25,54 @@ public class EditorFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        toolbarTitle = "";
+        getArgs();
         super.initView();
+        toolbar.setTitle("");
+        context.setSupportActionBar(toolbar);
+        context.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
         setViewPager();
+        setViewPagerListener();
+    }
+
+    public void getArgs() {
+        Bundle args = getArguments();
+        if (args != null) {
+            fromFile = args.getBoolean("FROM_FILE");
+            if (fromFile) {
+                position = args.getInt("POSITION");
+                saved = args.getBoolean("SAVED");
+                fileName = args.getString("FILE_NAME");
+                filePath = args.getString("FILE_PATH");
+                if (filePath != null) {
+                    fileContent = FileUtils.readContent(filePath);
+                }
+            }
+        }
     }
 
     public void setViewPager() {
         final ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(
                 getChildFragmentManager());
         editorViewPager.setAdapter(adapter);
-        editorViewPager.setCurrentItem(0);
+        editorViewPager.setCurrentItem(position);
+    }
+
+    public void setViewPagerListener() {
+        editorViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    EventBus.getDefault().post(true);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
+        });
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
@@ -56,23 +98,12 @@ public class EditorFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.editor_fragment_menu, menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        EditorAction editorAction = new EditorAction(context, null);
         switch (item.getItemId()) {
-            case R.id.md_help_docs:
-                // open markdown docs
-                context.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new MarkdownCheatsheetFragment())
-                        .addToBackStack(null)
-                        .commit();
-                break;
             case R.id.preview:
                 // switch to preview page
+                editorAction.toggleKeyboard(0);
                 editorViewPager.setCurrentItem(1, true);
                 break;
             case R.id.edit:
