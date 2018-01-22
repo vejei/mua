@@ -16,8 +16,6 @@ public class EditorFragment extends BaseEditorFragment {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.editor_viewpager) ViewPager editorViewPager;
 
-    private int position = 0;
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_editor;
@@ -40,7 +38,6 @@ public class EditorFragment extends BaseEditorFragment {
         if (args != null) {
             fromFile = args.getBoolean("FROM_FILE");
             if (fromFile) {
-                position = args.getInt("POSITION");
                 saved = args.getBoolean("SAVED");
                 fileName = args.getString("FILE_NAME");
                 filePath = args.getString("FILE_PATH");
@@ -55,7 +52,6 @@ public class EditorFragment extends BaseEditorFragment {
         final ScreenSlidePagerAdapter adapter = new ScreenSlidePagerAdapter(
                 getChildFragmentManager());
         editorViewPager.setAdapter(adapter);
-        editorViewPager.setCurrentItem(position);
     }
 
     public void setViewPagerListener() {
