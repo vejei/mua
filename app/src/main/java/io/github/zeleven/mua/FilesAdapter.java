@@ -5,17 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +38,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         final String fileName = file.getName();
         holder.fileName.setText(fileName);
 
-        final StringBuilder content = getFileContent(file);
+        final String content = FileUtils.readContentFromFile(file);
         if (content.length() == 0) {
             holder.fileContent.setVisibility(View.GONE);
         } else {
@@ -86,28 +81,5 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
             fileContent = itemView.findViewById(R.id.file_content);
             fileDate = itemView.findViewById(R.id.file_date);
         }
-    }
-
-    /**
-     * Get text content from specify file.
-     * @param file file object
-     * @return text content from file.
-     */
-    private StringBuilder getFileContent(File file) {
-        StringBuilder textContent = new StringBuilder();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                textContent.append(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e(getClass().getName(), e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e(getClass().getName(), e.getMessage());
-        }
-        return textContent;
     }
 }
