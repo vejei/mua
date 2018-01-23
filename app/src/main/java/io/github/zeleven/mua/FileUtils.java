@@ -1,5 +1,7 @@
 package io.github.zeleven.mua;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -111,7 +113,7 @@ public class FileUtils {
      * @param filePath
      * @return
      */
-    public static String readContent(String filePath) {
+    public static String readContentFromPath(String filePath) {
         File file = new File(filePath);
         StringBuilder content = new StringBuilder();
         try {
@@ -129,5 +131,23 @@ public class FileUtils {
             e.printStackTrace();
         }
         return content.toString();
+    }
+
+    public static String readContentFromFile(File file) {
+        StringBuilder textContent = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                textContent.append(line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.e(FileUtils.class.getName(), e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(FileUtils.class.getName(), e.getMessage());
+        }
+        return textContent.toString();
     }
 }
