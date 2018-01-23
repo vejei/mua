@@ -43,10 +43,6 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
     private String rootPath;
     private EditorAction editorAction;
 
-    public EditFragment() {
-        this.editorAction = new EditorAction();
-    }
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_edit;
@@ -63,8 +59,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
         if (editorAction == null) {
             editorAction = new EditorAction();
         }
-        editorAction.setContext(context);
-        editorAction.setEditText(contentInput);
+        editorAction = new EditorAction(context, contentInput);
         contentInput.requestFocus();
         setOnClickListener();
     }

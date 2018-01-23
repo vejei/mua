@@ -19,21 +19,19 @@ import java.io.File;
 public class EditorAction {
     private Context context; // context instance
     private EditText editText; // edittext instance
+    private UndoRedoHelper undoRedoHelper;
 
     public EditorAction() {
+    }
+
+    public EditorAction(Context context) {
+        this.context = context;
     }
 
     public EditorAction(Context context, EditText editText) {
         this.context = context;
         this.editText = editText;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public void setEditText(EditText editText) {
-        this.editText = editText;
+        this.undoRedoHelper = new UndoRedoHelper(editText);
     }
 
     /**
@@ -229,12 +227,18 @@ public class EditorAction {
      * Undo
      */
     public void undo() {
+        if (undoRedoHelper != null) {
+            undoRedoHelper.undo();
+        }
     }
 
     /**
      * Redo
      */
     public void redo() {
+        if (undoRedoHelper != null) {
+            undoRedoHelper.redo();
+        }
     }
 
     /**
@@ -346,8 +350,10 @@ public class EditorAction {
                 (context.getSystemService(Context.INPUT_METHOD_SERVICE));
         if (inputMethodManager != null) {
             if (flag == 0) {
-                inputMethodManager.hideSoftInputFromWindow(((AppCompatActivity) context)
-                        .getCurrentFocus().getWindowToken(), 0);
+                View currentFocus = ((AppCompatActivity) context).getCurrentFocus();
+                if (currentFocus != null) {
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                }
             } else {
                 inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
