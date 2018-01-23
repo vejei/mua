@@ -95,7 +95,7 @@ public class EditorFragment extends BaseEditorFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        EditorAction editorAction = new EditorAction(context, null);
+        EditorAction editorAction = new EditorAction(context);
         switch (item.getItemId()) {
             case R.id.preview:
                 // switch to preview page
