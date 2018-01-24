@@ -16,19 +16,30 @@
     <string name="toggle_drawer_open">Open Drawer</string>
     <string name="toggle_drawer_close">Close Drawer</string>
 
-    <!-- toolbar menu -->
+
+    <!-- file list fragment menu -->
     <string name="menu_item_search">搜索</string>
+
     <!-- sort options -->
     <string name="menu_item_sort">排序</string>
     <string name="choice_item_create_time_sort">按创建时间</string>
     <string name="choice_item_modify_time_sort">按修改时间</string>
     <string name="choice_item_title_sort">按标题</string>
+
     <!-- show options -->
     <string name="menu_item_show_option">查看选项</string>
     <string name="choice_item_show_digest">显示摘要</string>
     <string name="choice_item_show_date">显示时间</string>
+
     <!-- search hint -->
     <string name="search_hint">输入关键词搜索</string>
+
+    <!-- action mode menu -->
+    <string name="action_mode_menu_item_rename">重命名</string>
+    <string name="action_mode_menu_item_select_all">全选</string>
+    <string name="action_mode_menu_item_delete">删除</string>
+    <string name="dialog_message_delete_files_confirm">要删除选中的文件吗？</string>
+    <!-- file list fragment menu -->
 
 
     <!-- edit fragment -->
