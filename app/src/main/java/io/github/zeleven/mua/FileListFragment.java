@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,6 +32,7 @@ import butterknife.BindView;
 
 public class FileListFragment extends BaseFragment {
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.file_list) RecyclerView fileListRecyclerView;
     @BindView(R.id.create_markdown_btn) FloatingActionButton createMarkdownBtn;
     @BindView(R.id.navigation_view) NavigationView navigationView;
@@ -51,12 +53,20 @@ public class FileListFragment extends BaseFragment {
         setHasOptionsMenu(true);
         setDrawerToggle();
         setNavigationViewItemListener();
-        FilesAdapter adapter = new FilesAdapter(readAppFiles());
+        final FilesAdapter adapter = new FilesAdapter(readAppFiles());
         fileListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         fileListRecyclerView.setItemAnimator(new DefaultItemAnimator());
         fileListRecyclerView.addItemDecoration(new DividerItemDecoration(context,
                 DividerItemDecoration.VERTICAL));
         fileListRecyclerView.setAdapter(adapter);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     /**
