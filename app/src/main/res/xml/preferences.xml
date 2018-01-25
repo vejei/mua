@@ -7,7 +7,8 @@
             android:title="@string/pref_title_language"
             android:summary="@string/pref_summary_language"
             android:entries="@array/language_list"
-            android:entryValues="@array/language_list_value" />
+            android:entryValues="@array/language_list_value"
+            android:defaultValue="device"/>
 
         <!--<Preference android:key="@string/pref_key_drawer_header"-->
             <!--android:title="@string/pref_title_drawer_header"-->
@@ -27,11 +28,13 @@
             android:summary="@string/pref_summary_sync"
             android:entries="@array/sync_list"
             android:entryValues="@array/sync_list_value"
-            android:defaultValue="0"/>
+            android:defaultValue="0"
+            android:enabled="false"/>
         <CheckBoxPreference android:key="@string/pref_key_network"
             android:title="@string/pref_title_wifi_sync"
             android:summary="@string/pref_summary_wifi_sync"
-            android:defaultValue="true"/>
+            android:defaultValue="true"
+            android:enabled="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/category_title_feedback"
