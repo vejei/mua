@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mua</string>
 
@@ -135,6 +136,7 @@
     <string name="pref_summary_sync">自动同步</string>
     <string name="pref_title_wifi_sync">仅在WIFI下同步</string>
     <string name="pref_summary_wifi_sync">WIFI</string>
+    <string name="pref_summary_4g_sync">使用4G/3G/2G</string>
     <string name="pref_title_feedback">意见反馈</string>
     <string name="pref_title_bug_report">错误报告</string>
     <string name="pref_title_rate">应用评分</string>
@@ -147,7 +149,7 @@
     <string name="market_link">market://details?id=</string>
 
     <!-- language list preference item text -->
-    <string name="pref_array_item_system">跟随系统</string>
+    <string name="pref_array_item_device">跟随系统</string>
     <string name="pref_array_item_chinese_t">繁体中文</string>
     <string name="pref_array_item_chinese_s">简体中文</string>
     <string name="pref_array_item_english">英文</string>
