@@ -7,12 +7,11 @@
             android:title="@string/pref_title_language"
             android:summary="@string/pref_summary_language"
             android:entries="@array/language_list"
-            android:entryValues="@array/language_list_value"
-            android:defaultValue="1"/>
+            android:entryValues="@array/language_list_value" />
 
-        <Preference android:key="@string/pref_key_drawer_header"
-            android:title="@string/pref_title_drawer_header"
-            android:summary="@string/pref_summary_default"/>
+        <!--<Preference android:key="@string/pref_key_drawer_header"-->
+            <!--android:title="@string/pref_title_drawer_header"-->
+            <!--android:summary="@string/pref_summary_default"/>-->
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/category_title_storage_sync"
@@ -22,13 +21,13 @@
             android:summary="@string/pref_summary_file_extension"
             android:entries="@array/extension_list"
             android:entryValues="@array/extension_list_value"
-            android:defaultValue="1"/>
+            android:defaultValue="0"/>
         <ListPreference android:key="@string/pref_key_sync"
             android:title="@string/pref_title_sync"
             android:summary="@string/pref_summary_sync"
             android:entries="@array/sync_list"
             android:entryValues="@array/sync_list_value"
-            android:defaultValue="1"/>
+            android:defaultValue="0"/>
         <CheckBoxPreference android:key="@string/pref_key_network"
             android:title="@string/pref_title_wifi_sync"
             android:summary="@string/pref_summary_wifi_sync"
