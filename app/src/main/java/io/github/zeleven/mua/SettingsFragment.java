@@ -101,46 +101,46 @@ public class SettingsFragment extends BaseFragment {
             }
 
             // sync options setting
-            final ListPreference syncPref = (ListPreference) findPreference("sync");
-            if (syncPref != null) {
-                int index = syncPref.findIndexOfValue(sharedPref.getString("sync", ""));
-                final CharSequence[] entries = syncPref.getEntries();
-                syncPref.setSummary(entries[index]);
-                syncPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        editor.putString("sync", (String) newValue).commit();
-                        int newIndex = syncPref.findIndexOfValue((String) newValue);
-                        syncPref.setSummary(entries[newIndex]);
-                        return true;
-                    }
-                });
-            }
+//            final ListPreference syncPref = (ListPreference) findPreference("sync");
+//            if (syncPref != null) {
+//                int index = syncPref.findIndexOfValue(sharedPref.getString("sync", ""));
+//                final CharSequence[] entries = syncPref.getEntries();
+//                syncPref.setSummary(entries[index]);
+//                syncPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//                    @Override
+//                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+//                        editor.putString("sync", (String) newValue).commit();
+//                        int newIndex = syncPref.findIndexOfValue((String) newValue);
+//                        syncPref.setSummary(entries[newIndex]);
+//                        return true;
+//                    }
+//                });
+//            }
 
             // network setting
-            final CheckBoxPreference networkPref = (CheckBoxPreference) findPreference("network");
-            if (networkPref != null) {
-                boolean isChecked = sharedPref.getBoolean("network", true);
-                networkPref.setChecked(isChecked);
-                if (isChecked) {
-                    networkPref.setSummary(R.string.pref_summary_wifi_sync);
-                } else {
-                    networkPref.setSummary(R.string.pref_summary_4g_sync);
-                }
-                networkPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        editor.putBoolean("network", (Boolean) newValue).commit();
-                        networkPref.setChecked((Boolean) newValue);
-                        if ((Boolean) newValue) {
-                            networkPref.setSummary(R.string.pref_summary_wifi_sync);
-                        } else {
-                            networkPref.setSummary(R.string.pref_summary_4g_sync);
-                        }
-                        return false;
-                    }
-                });
-            }
+//            final CheckBoxPreference networkPref = (CheckBoxPreference) findPreference("network");
+//            if (networkPref != null) {
+//                boolean isChecked = sharedPref.getBoolean("network", true);
+//                networkPref.setChecked(isChecked);
+//                if (isChecked) {
+//                    networkPref.setSummary(R.string.pref_summary_wifi_sync);
+//                } else {
+//                    networkPref.setSummary(R.string.pref_summary_4g_sync);
+//                }
+//                networkPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//                    @Override
+//                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+//                        editor.putBoolean("network", (Boolean) newValue).commit();
+//                        networkPref.setChecked((Boolean) newValue);
+//                        if ((Boolean) newValue) {
+//                            networkPref.setSummary(R.string.pref_summary_wifi_sync);
+//                        } else {
+//                            networkPref.setSummary(R.string.pref_summary_4g_sync);
+//                        }
+//                        return false;
+//                    }
+//                });
+//            }
 
             // update preference setting, setting version name and version code
             String versionName = "";
