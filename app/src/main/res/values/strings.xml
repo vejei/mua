@@ -69,6 +69,7 @@
     <string name="dialog_btn_rename">重命名</string>
 
     <!-- clear all -->
+    <string name="toast_content_empty">内容为空</string>
     <string name="dialog_message_clear_all">确定要清除所有内容吗？</string>
 
     <!-- markdown docs fragment toolbar title -->
@@ -135,7 +136,7 @@
     <string name="pref_title_sync">同步</string>
     <string name="pref_summary_sync">自动同步</string>
     <string name="pref_title_wifi_sync">仅在WIFI下同步</string>
-    <string name="pref_summary_wifi_sync">WIFI</string>
+    <string name="pref_summary_wifi_sync">使用WIFI</string>
     <string name="pref_summary_4g_sync">使用4G/3G/2G</string>
     <string name="pref_title_feedback">意见反馈</string>
     <string name="pref_title_bug_report">错误报告</string>
