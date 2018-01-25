@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--preferences array-->
+    <string-array name="language_list">
+        <item>@string/pref_array_item_device</item>
+        <item>@string/pref_array_item_chinese_t</item>
+        <item>@string/pref_array_item_chinese_s</item>
+        <item>@string/pref_array_item_english</item>
+    </string-array>
+    <string-array name="language_list_value">
+        <item>device</item>
+        <item>zh_TW</item>
+        <item>zh_CN</item>
+        <item>en</item>
+    </string-array>
+
+    <string-array name="sync_list">
+        <item>@string/pref_array_item_sync_auto</item>
+        <item>@string/pref_array_item_sync_remind</item>
+        <item>@string/pref_array_item_sync_manual</item>
+    </string-array>
+    <string-array name="sync_list_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="extension_list">
+        <item>@string/pref_array_item_dot_md</item>
+        <item>@string/pref_array_item_dot_markdown</item>
+        <item>@string/pref_array_item_dot_mdown</item>
+    </string-array>
+    <string-array name="extension_list_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <!--toolbar menu item array-->
+    <string-array name="sort_options">
+        <item>@string/choice_item_create_time_sort</item>
+        <item>@string/choice_item_modify_time_sort</item>
+        <item>@string/choice_item_title_sort</item>
+    </string-array>
+    <string-array name="show_options">
+        <item>@string/choice_item_show_digest</item>
+        <item>@string/choice_item_show_date</item>
+    </string-array>
+</resources>
