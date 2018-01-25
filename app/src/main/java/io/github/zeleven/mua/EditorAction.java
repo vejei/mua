@@ -287,7 +287,7 @@ public class EditorAction {
      */
     public void clearAll() {
         if (editText.getText().toString().equals("")) {
-            Toast.makeText(context, "内容为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.toast_content_empty, Toast.LENGTH_SHORT).show();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(R.string.dialog_message_clear_all);
@@ -324,7 +324,7 @@ public class EditorAction {
      */
     public void statistics() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("统计信息");
+        builder.setTitle(R.string.dialog_title_statistics);
 
         LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_statistics, null);
