@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileUtils {
+    private static String className = FileUtils.class.getName();
 
     /**
      * Listing the files from specified file path
@@ -66,6 +67,10 @@ public class FileUtils {
      * @param newFile target file.
      */
     public static void renameFile(File oldFile, File newFile) {
+        if (!oldFile.exists() || !newFile.exists()) {
+            Log.i(className, "File not found.");
+            return;
+        }
         oldFile.renameTo(newFile);
     }
 
@@ -143,11 +148,26 @@ public class FileUtils {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.e(FileUtils.class.getName(), e.getMessage());
+            Log.e(className, e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e(FileUtils.class.getName(), e.getMessage());
+            Log.e(className, e.getMessage());
         }
         return textContent.toString();
+    }
+
+    public static void deleteFiles(List<File> fileList) {
+        for (File file : fileList) {
+            deleteFile(file);
+        }
+    }
+
+    public static void deleteFile(File file) {
+        if (file.exists()) {
+            file.delete();
+            Log.i(className, "Delete success.");
+        } else {
+            Log.i(className, "File not found.");
+        }
     }
 }
