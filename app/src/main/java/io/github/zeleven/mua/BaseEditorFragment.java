@@ -1,8 +1,11 @@
 package io.github.zeleven.mua;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ public abstract class BaseEditorFragment extends Fragment {
     protected static String fileName;
     protected static String filePath;
     protected static String fileContent;
+    protected static String fileExtension;
+    protected static SharedPreferences sharedPref;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +40,28 @@ public abstract class BaseEditorFragment extends Fragment {
             filePath = null;
             fileContent = null;
         }
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        fileExtension = getFileExt(sharedPref.getString("file_extension", ""));
+    }
+
+    public String getFileExt(String value) {
+        Resources res = context.getResources();
+        String[] items = res.getStringArray(R.array.extension_list);
+        String fileExt;
+        switch (value) {
+            case "0":
+                fileExt = items[0];
+                break;
+            case "1":
+                fileExt = items[1];
+                break;
+            case "2":
+                fileExt = items[2];
+                break;
+            default:
+                fileExt = items[0];
+        }
+        return fileExt;
     }
 
     public abstract int getLayoutId();
