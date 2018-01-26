@@ -162,12 +162,14 @@ public class FileUtils {
         }
     }
 
-    public static void deleteFile(File file) {
+    public static boolean deleteFile(File file) {
+        boolean result = false;
         if (file.exists()) {
-            file.delete();
+            result = file.delete();
             Log.i(className, "Delete success.");
         } else {
             Log.i(className, "File not found.");
         }
+        return result;
     }
 }
