@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -73,12 +74,10 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.rename);
-        if (saved) {
-            item.setEnabled(true);
-        } else {
-            item.setEnabled(false);
-        }
+        MenuItem renameItem = menu.findItem(R.id.rename);
+        MenuItem deleteItem = menu.findItem(R.id.delete);
+        renameItem.setEnabled(saved);
+        deleteItem.setEnabled(saved);
     }
 
     @Override
@@ -98,6 +97,8 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                     LayoutInflater inflater = context.getLayoutInflater();
                     final View view = inflater.inflate(R.layout.dialog_save_file, null);
                     final EditText fileNameET = view.findViewById(R.id.file_name);
+                    TextView fileExtTV = view.findViewById(R.id.file_extension);
+                    fileExtTV.setText(fileExtension);
 
                     saveDialog.setView(view);
                     saveDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -111,12 +112,12 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fileName = fileNameET.getText().toString();
-                            filePath = rootPath + fileName + ".md";
+                            filePath = rootPath + fileName + fileExtension;
                             new SaveFileTask(context, filePath, fileName,
                                     contentInput.getText().toString(), new SaveFileTask.Response() {
                                 @Override
                                 public void taskFinish(Boolean result) {
-                                    saved = result;
+                                    saved = result; // change saved value to true if save success
                                 }
                             }).execute();
                         }
@@ -135,8 +136,11 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                     LayoutInflater inflater = context.getLayoutInflater();
                     View view = inflater.inflate(R.layout.dialog_save_file, null);
                     final EditText fileNameET = view.findViewById(R.id.file_name);
+                    TextView fileExtTV = view.findViewById(R.id.file_extension);
+
                     fileNameET.setText(fileName);
                     fileNameET.setSelection(fileName.length());
+                    fileExtTV.setText(fileExtension);
 
                     renameDialog.setView(view);
                     renameDialog.setNegativeButton(R.string.cancel,
@@ -152,17 +156,31 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                         public void onClick(DialogInterface dialog, int which) {
                             fileName = fileNameET.getText().toString();
                             FileUtils.renameFile(new File(filePath),
-                                    new File(rootPath + fileName + ".md"));
-                            filePath = rootPath + fileName + ".md";
+                                    new File(rootPath + fileName + fileExtension));
+                            filePath = rootPath + fileName + fileExtension;
                         }
                     });
                     renameDialog.show();
                 }
                 break;
+            case R.id.delete:
+                // delete file, close fragment if success
+                boolean result = FileUtils.deleteFile(new File(filePath));
+                if (result) {
+                    Toast.makeText(context, R.string.toast_message_deleted,
+                            Toast.LENGTH_SHORT).show();
+                    context.getSupportFragmentManager().popBackStack();
+                } else {
+                    Toast.makeText(context, R.string.toast_message_delete_error,
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.clear_all:
+                // clear all the content in edittext
                 editorAction.clearAll();
                 break;
             case R.id.md_docs:
+                // open the markdown cheatsheet fragment
                 editorAction.checkDocs();
                 break;
             case R.id.statistics:
@@ -201,50 +219,76 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                 break;
             case R.id.image:
                 // open dialog to insert image
-                final CharSequence[] items = {localImage, internetImage};
-                AlertDialog.Builder optionsDialog = new AlertDialog.Builder(context);
-                optionsDialog.setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (items[which].equals(items[0])) {
-                            // select local image
-                            Intent intent = new Intent();
-                            intent.setType("image/*");
-                            intent.setAction(Intent.ACTION_GET_CONTENT);
-                            startActivityForResult(intent, 1);
-                        } else if (items[which].equals(items[1])) {
-                            dialog.cancel();
+//                final CharSequence[] items = {localImage, internetImage};
+//                AlertDialog.Builder optionsDialog = new AlertDialog.Builder(context);
+//                optionsDialog.setItems(items, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (items[which].equals(items[0])) {
+//                            // select local image
+//                            Intent intent = new Intent();
+//                            intent.setType("image/*");
+//                            intent.setAction(Intent.ACTION_GET_CONTENT);
+//                            startActivityForResult(intent, 1);
+//                        } else if (items[which].equals(items[1])) {
+//                            dialog.cancel();
+//
+//                            // insert image from internet
+//                            AlertDialog.Builder inputDialog = new AlertDialog.Builder(context);
+//                            inputDialog.setTitle(R.string.dialog_title_insert_image);
+//                            LayoutInflater inflater = context.getLayoutInflater();
+//                            final View dialogView = inflater.inflate(R.layout.dialog_insert_image, null);
+//                            inputDialog.setView(dialogView);
+//                            inputDialog.setNegativeButton(R.string.cancel,
+//                                    new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.cancel();
+//                                }
+//                            });
+//
+//                            inputDialog.setPositiveButton(R.string.dialog_btn_insert,
+//                                    new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    EditText imageDisplayText = dialogView.findViewById(
+//                                            R.id.image_display_text);
+//                                    EditText imageUri = dialogView.findViewById(R.id.image_uri);
+//                                    editorAction.insertImage(imageDisplayText.getText().toString(),
+//                                            imageUri.getText().toString());
+//                                }
+//                            });
+//                            inputDialog.show();
+//                        }
+//                    }
+//                });
+//                optionsDialog.show();
+                // insert image
+                AlertDialog.Builder inputDialog = new AlertDialog.Builder(context);
+                inputDialog.setTitle(R.string.dialog_title_insert_image);
+                LayoutInflater inflater = context.getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.dialog_insert_image, null);
+                inputDialog.setView(dialogView);
+                inputDialog.setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
 
-                            // insert image from internet
-                            AlertDialog.Builder inputDialog = new AlertDialog.Builder(context);
-                            inputDialog.setTitle(R.string.dialog_title_insert_image);
-                            LayoutInflater inflater = context.getLayoutInflater();
-                            final View dialogView = inflater.inflate(R.layout.dialog_insert_image, null);
-                            inputDialog.setView(dialogView);
-                            inputDialog.setNegativeButton(R.string.cancel,
-                                    new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                            inputDialog.setPositiveButton(R.string.dialog_btn_insert,
-                                    new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    EditText imageDisplayText = dialogView.findViewById(
-                                            R.id.image_display_text);
-                                    EditText imageUri = dialogView.findViewById(R.id.image_uri);
-                                    editorAction.insertImage(imageDisplayText.getText().toString(),
-                                            imageUri.getText().toString());
-                                }
-                            });
-                            inputDialog.show();
-                        }
-                    }
-                });
-                optionsDialog.show();
+                inputDialog.setPositiveButton(R.string.dialog_btn_insert,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                EditText imageDisplayText = dialogView.findViewById(
+                                        R.id.image_display_text);
+                                EditText imageUri = dialogView.findViewById(R.id.image_uri);
+                                editorAction.insertImage(imageDisplayText.getText().toString(),
+                                        imageUri.getText().toString());
+                            }
+                        });
+                inputDialog.show();
                 break;
         }
     }
