@@ -116,9 +116,6 @@ public class FileListFragment extends BaseFragment {
                     case R.id.word_cloud:
                         selectedFragment = new WordCloudFragment();
                         break;
-                    case R.id.theme_switch:
-                        selectedFragment = new ThemeFragment();
-                        break;
                     case R.id.help:
                         selectedFragment = new HelpFragment();
                         break;
