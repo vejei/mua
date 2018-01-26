@@ -143,7 +143,7 @@ public class EditorAction {
             editText.setSelection(start + 2);
         } else {
             editText.getText().insert(start, "\n\n> ");
-            editText.getText().insert(end + 4, "\n\n");
+            editText.setSelection(end + 4);
         }
     }
 
