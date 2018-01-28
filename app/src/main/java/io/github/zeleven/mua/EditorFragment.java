@@ -42,7 +42,7 @@ public class EditorFragment extends BaseEditorFragment {
                 fileName = args.getString(Constants.BUNDLE_KEY_FILE_NAME);
                 filePath = args.getString(Constants.BUNDLE_KEY_FILE_PATH);
                 if (filePath != null) {
-                    fileContent = FileUtils.readContentFromPath(filePath);
+                    fileContent = FileUtils.readContentFromPath(filePath, true);
                 }
             }
         }
