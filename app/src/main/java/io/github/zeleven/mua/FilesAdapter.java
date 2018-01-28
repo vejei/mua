@@ -33,31 +33,34 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final File file = dataSet.get(position);
-        final String fileName = file.getName();
+        String fileName = file.getName();
         holder.fileName.setText(fileName);
 
-        final String content = FileUtils.readContentFromFile(file);
+        String content = FileUtils.readContentFromFile(file, false);
         if (content.length() == 0) {
             holder.fileContent.setVisibility(View.GONE);
         } else {
+            content = content.length() > 500 ? content.substring(0, 500) : content;
             holder.fileContent.setText(content);
         }
 
         holder.fileDate.setText(DateUtils.getRelativeTimeSpanString(file.lastModified(),
                 System.currentTimeMillis(), DateUtils.FORMAT_ABBREV_ALL));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // open detail fragment
                 Fragment fragment = new EditorFragment();
+
                 Bundle args = new Bundle();
                 args.putBoolean(Constants.BUNDLE_KEY_SAVED, true);
                 args.putBoolean(Constants.BUNDLE_KEY_FROM_FILE, true);
                 args.putString(Constants.BUNDLE_KEY_FILE_NAME,
                         FileUtils.stripExtension(file.getName()));
                 args.putString(Constants.BUNDLE_KEY_FILE_PATH, file.getAbsolutePath());
+
                 fragment.setArguments(args);
                 context.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, fragment)
