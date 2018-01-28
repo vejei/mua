@@ -42,8 +42,8 @@
         <item>@string/choice_item_modify_time_sort</item>
         <item>@string/choice_item_title_sort</item>
     </string-array>
-    <string-array name="show_options">
-        <item>@string/choice_item_show_digest</item>
-        <item>@string/choice_item_show_date</item>
+    <string-array name="display_options">
+        <item>@string/choice_item_file_ext</item>
+        <item>@string/choice_item_file_ext</item>
     </string-array>
 </resources>
