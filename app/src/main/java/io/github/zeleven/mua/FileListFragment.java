@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -36,8 +37,13 @@ public class FileListFragment extends BaseFragment {
     @BindView(R.id.file_list) RecyclerView fileListRecyclerView;
     @BindView(R.id.create_markdown_btn) FloatingActionButton createMarkdownBtn;
     @BindView(R.id.navigation_view) NavigationView navigationView;
+    @BindView(R.id.empty_list) RelativeLayout emptyList;
 
     @BindString(R.string.app_name) String appName;
+    private String root = Environment.getExternalStorageDirectory().toString();
+    private String rootPath;
+
+    private FilesAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -49,24 +55,17 @@ public class FileListFragment extends BaseFragment {
         toolbarTitle = appName;
         setDisplayHomeAsUpEnabled = false;
         super.initView();
-        setFab();
-        setHasOptionsMenu(true);
-        setDrawerToggle();
-        setNavigationViewItemListener();
-        final FilesAdapter adapter = new FilesAdapter(readAppFiles());
-        fileListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        fileListRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        fileListRecyclerView.addItemDecoration(new DividerItemDecoration(context,
-                DividerItemDecoration.VERTICAL));
-        fileListRecyclerView.setAdapter(adapter);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                adapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        initVar(); // init variable
+        setFab(); // set floating action button
+        setHasOptionsMenu(true); // set has options menu
+        setDrawerToggle(); // set toggle for drawerlayout
+        setNavigationViewItemListener(); // set navigation view item listener
+        setRecyclerView(); // set recyclerview
+        setSwipeRefreshLayout(); // set swipe refresh layout
+    }
+
+    public void initVar() {
+        rootPath = root + "/" + appName + "/";
     }
 
     /**
@@ -134,6 +133,39 @@ public class FileListFragment extends BaseFragment {
         });
     }
 
+    public void setRecyclerView() {
+        List<File> fileList = null;
+        if (StorageHelper.isExternalStorageReadable()) {
+            fileList = FileUtils.listFiles(rootPath);
+            if (fileList.isEmpty()) {
+                emptyList.setVisibility(View.VISIBLE);
+            } else {
+                emptyList.setVisibility(View.GONE);
+            }
+        } else {
+            Toast.makeText(context, R.string.toast_message_sdcard_unavailable,
+                    Toast.LENGTH_SHORT).show();
+        }
+        adapter = new FilesAdapter(fileList);
+        fileListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        fileListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        fileListRecyclerView.addItemDecoration(new DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL));
+        fileListRecyclerView.setAdapter(adapter);
+    }
+
+    public void setSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                adapter = new FilesAdapter(FileUtils.listFiles(rootPath));
+                adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -147,69 +179,69 @@ public class FileListFragment extends BaseFragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.sort:
-                // open sort options dialog
-                builder.setTitle(R.string.menu_item_sort);
-                builder.setSingleChoiceItems(R.array.sort_options, 0,
+                AlertDialog.Builder sortDialog = new AlertDialog.Builder(context);
+                sortDialog.setTitle(R.string.menu_item_sort);
+                sortDialog.setSingleChoiceItems(R.array.sort_options, 0,
                         new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                sortDialog.setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-                builder.show();
+                sortDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // sort here
+                    }
+                });
+                sortDialog.show();
                 break;
-            case R.id.show_options:
-                // open show options settings dialog
-                final ArrayList selectedItems = new ArrayList();
-                builder.setTitle(R.string.menu_item_show_option);
-                boolean[] checkedItems = {true, true};
-                builder.setMultiChoiceItems(R.array.show_options, checkedItems,
+            case R.id.display_options:
+                AlertDialog.Builder displayOptions = new AlertDialog.Builder(context);
+                displayOptions.setTitle(R.string.menu_item_show_option);
+                boolean checkedItems[] = {true, false};
+                final ArrayList<Integer> selected = new ArrayList<>();
+                displayOptions.setMultiChoiceItems(R.array.show_options, checkedItems,
                         new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
-                            selectedItems.add(which);
-                        } else if (selectedItems.contains(which)) {
-                            selectedItems.remove(which);
+                            selected.add(which);
+                        } else if (selected.contains(which)) {
+                            selected.remove(which);
                         }
                     }
                 });
-                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                displayOptions.setNegativeButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                displayOptions.setPositiveButton(R.string.ok,
+                        new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // do something here
-                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+//                        for (int i = 0; i < selected.size(); i++) {
+//
+//                        }
+                        adapter.notifyDataSetChanged();
                     }
                 });
-                builder.show();
+                displayOptions.show();
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private List<File> readAppFiles() {
-        String filesPath = Environment.getExternalStorageDirectory().toString()
-                + "/" + appName + "/";
-        List<File> fileList = FileUtils.listFiles(filesPath);
-        if (fileList == null) {
-            FileUtils.createFolder(filesPath);
-        }
-        return fileList;
     }
 }
