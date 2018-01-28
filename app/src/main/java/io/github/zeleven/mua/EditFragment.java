@@ -90,6 +90,11 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                 editorAction.redo();
                 break;
             case R.id.save:
+                if (!StorageHelper.isExternalStorageWritable()) {
+                    Toast.makeText(context, R.string.toast_message_sdcard_unavailable,
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 if (!saved) {
                     AlertDialog.Builder saveDialog = new AlertDialog.Builder(context);
                     saveDialog.setTitle(R.string.dialog_title_save_file);
