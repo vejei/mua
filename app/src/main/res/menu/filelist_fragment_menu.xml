@@ -8,6 +8,6 @@
         app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item android:id="@+id/sort"
         android:title="@string/menu_item_sort"/>
-    <item android:id="@+id/show_options"
+    <item android:id="@+id/display_options"
         android:title="@string/menu_item_show_option"/>
 </menu>
