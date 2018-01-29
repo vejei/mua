@@ -2,10 +2,11 @@
 <resources>
     <!-- navigation drawer item -->
     <string name="drawer_item_sync">Sync</string>
-    <string name="drawer_item_wordcloud">Word cloud</string>
-    <string name="drawer_item_theme_switch">Theme</string>
+    <string name="drawer_item_wordcloud">Word Cloud</string>
     <string name="drawer_item_help">Help</string>
     <string name="drawer_item_settings">Settings</string>
+    <!-- navigation drawer item -->
+
 
     <!-- cancel and ok -->
     <string name="cancel">Cancel</string>
@@ -16,29 +17,32 @@
     <string name="toggle_drawer_close">Close Drawer</string>
 
 
-    <!-- file list fragment menu -->
+    <!-- file list fragment -->
+    <string name="toast_message_sdcard_unavailable">SD card unavailable</string>
+    <string name="list_empty">Did not find any file, click the button to create a new file.</string>
+
+    <!-- menu -->
     <string name="menu_item_search">Search</string>
 
     <!-- sort options -->
     <string name="menu_item_sort">Sort by</string>
-    <string name="choice_item_create_time_sort">Creation datetime</string>
-    <string name="choice_item_modify_time_sort">Last modified</string>
+    <string name="choice_item_create_time_sort">Creation time</string>
+    <string name="choice_item_modify_time_sort">Last modify</string>
     <string name="choice_item_title_sort">Title</string>
 
     <!-- show options -->
-    <string name="menu_item_show_option">Display options</string>
-    <string name="choice_item_show_digest">Digest</string>
-    <string name="choice_item_show_date">Datetime</string>
+    <string name="menu_item_display_option">Display options</string>
+    <string name="choice_item_file_ext">File extension</string>
+    <string name="choice_item_file_size">File size</string>
 
     <!-- search hint -->
-    <string name="search_hint">Input key word to search</string>
+    <string name="search_hint">Search files</string>
 
     <!-- action mode menu -->
-    <string name="action_mode_menu_item_rename">Rename</string>
     <string name="action_mode_menu_item_select_all">Select all</string>
     <string name="action_mode_menu_item_delete">Delete</string>
     <string name="dialog_message_delete_files_confirm">Do you want to delete the selected file?</string>
-    <!-- file list fragment menu -->
+    <!-- file list fragment -->
 
 
     <!-- edit fragment -->
@@ -48,11 +52,15 @@
     <string name="menu_item_preview">Preview</string>
     <string name="menu_item_save">Save</string>
     <string name="menu_item_rename">Rename</string>
+    <string name="menu_item_delete">Delete</string>
     <string name="menu_item_clear_all">Clear all</string>
-    <string name="menu_item_docs">Markdown Syntax</string>
+    <string name="menu_item_docs">Markdown cheat sheet</string>
     <string name="menu_item_statistics">Statistics</string>
     <string name="menu_item_edit">Edit</string>
-    <string name="toast_message_cleared">Content has been cleared</string>
+
+    <string name="toast_message_deleted">Deleted</string>
+    <string name="toast_message_delete_error">File deletion failed</string>
+    <string name="toast_message_cleared">The content has been cleared</string>
 
     <!-- edit fragment toolbar menu item dialog -->
     <!-- save file -->
@@ -68,10 +76,10 @@
 
     <!-- clear all -->
     <string name="toast_content_empty">Content is empty</string>
-    <string name="dialog_message_clear_all">Do you want to clear all content?</string>
+    <string name="dialog_message_clear_all">Are you sure to clear all?</string>
 
     <!-- markdown docs fragment toolbar title -->
-    <string name="docs_fragment_tb_title">Markdown CheatSheet</string>
+    <string name="docs_fragment_tb_title">Markdown Cheat Sheet</string>
 
     <!-- statistics -->
     <string name="dialog_title_statistics">Statistics</string>
@@ -84,41 +92,29 @@
 
     <!-- insert link -->
     <string name="dialog_title_insert_link">Insert link</string>
-    <string name="dialog_et_hint_link_display_text">Display text (Default：Link)</string>
+    <string name="dialog_et_hint_link_display_text">Display text (Default: Link)</string>
     <string name="dialog_et_hint_link_content">Link</string>
 
     <!-- insert image -->
     <string name="dialog_item_text_local_image">Local</string>
     <string name="dialog_item_text_internet_image">Internet</string>
     <string name="dialog_title_insert_image">Insert image</string>
-    <string name="dialog_et_hint_image_display_text">Display Text (Default: Image)</string>
+    <string name="dialog_et_hint_image_display_text">Display text (Default: Image)</string>
     <string name="dialog_et_hint_image_uri">Image link</string>
 
     <!-- insert block code -->
-    <string name="editor_dialog_title_insert_block_code">Insert code block</string>
-    <string name="dialog_et_hint_language_name">Programming language</string>
+    <string name="editor_dialog_title_insert_block_code">Insert block code</string>
+    <string name="dialog_et_hint_language_name">Language</string>
 
     <!-- dialog toast -->
     <string name="toast_saved">Saved</string>
-    <string name="toast_does_not_select">"Doesn't select any image."</string>
-    <string name="toast_file_name_can_not_empty">File name can not be empty.</string>
-    <string name="toast_file_name_exists">The file name already exists, please re-enter.</string>
+    <string name="toast_does_not_select">No image selected</string>
+    <string name="toast_file_name_can_not_empty">File name can not be empty</string>
+    <string name="toast_file_name_exists">The file name already exists. Please enter new name.</string>
     <!-- edit fragment -->
 
 
     <!-- preference -->
-    <!-- preference key -->
-    <string name="pref_key_language">language</string>
-    <string name="pref_key_drawer_header">drawer_header</string>
-    <string name="pref_key_file_extension">file_extension</string>
-    <string name="pref_key_sync">sync</string>
-    <string name="pref_key_network">network</string>
-    <string name="pref_key_feedback">feedback</string>
-    <string name="pref_key_bug_report">bug_report</string>
-    <string name="pref_key_rating">rating</string>
-    <string name="pref_key_check_update">check_update</string>
-    <string name="pref_key_about">about</string>
-
     <!--preference title and summary-->
     <string name="category_title_display">Display</string>
     <string name="category_title_storage_sync">Storage &amp; Sync</string>
@@ -127,8 +123,8 @@
 
     <string name="pref_summary_default">Default</string>
     <string name="pref_title_language">Language</string>
-    <string name="pref_summary_language">Device</string>
-    <string name="pref_title_drawer_header">Drawer header</string>
+    <string name="pref_summary_language">Auto</string>
+    <string name="pref_title_drawer_header">Drawer Header</string>
     <string name="pref_title_file_extension">File extension</string>
     <string name="pref_summary_file_extension">.md</string>
     <string name="pref_title_sync">Sync</string>
@@ -137,25 +133,30 @@
     <string name="pref_summary_wifi_sync">Using WIFI</string>
     <string name="pref_summary_4g_sync">Using 4G/3G/2G</string>
     <string name="pref_title_feedback">Feedback</string>
-    <string name="pref_title_bug_report">Bug Report</string>
+    <string name="pref_title_bug_report">Bug report</string>
     <string name="pref_title_rate">Rating</string>
-    <string name="pref_title_check_update">Update</string>
-    <string name="pref_summary_current_version">Current Version v1.0</string>
+    <string name="pref_title_check_update">Check for update</string>
+    <string name="pref_summary_current_version">Current version v1.0</string>
     <string name="pref_title_about">About</string>
 
     <!-- language list preference item text -->
-    <string name="pref_array_item_device">Device</string>
-    <string name="pref_array_item_chinese_t">Traditional Chinese</string>
-    <string name="pref_array_item_chinese_s">Simplified Chinese</string>
+    <string name="pref_array_item_auto">Auto</string>
     <string name="pref_array_item_english">English</string>
+    <string name="pref_array_item_chinese_s">Simplified Chinese</string>
+    <string name="pref_array_item_chinese_t">Traditional Chinese</string>
 
     <!-- sync list preference item text -->
     <string name="pref_array_item_sync_auto">Auto</string>
     <string name="pref_array_item_sync_remind">Remind</string>
     <string name="pref_array_item_sync_manual">Manual</string>
 
+    <!-- file extension list preference item text -->
+    <string name="pref_array_item_dot_md">.md</string>
+    <string name="pref_array_item_dot_markdown">.markdown</string>
+    <string name="pref_array_item_dot_mdown">.mdown</string>
+
     <!--about fragment-->
-    <string name="app_describe">Completely open source Markdown editor.</string>
+    <string name="app_describe">Completely open source Markdown editor</string>
     <string name="app_version_text">Current version</string>
     <string name="app_version_number">1.0</string>
     <string name="project_link">Source code</string>
@@ -165,4 +166,5 @@
     <string name="menu_item_title_email">Email</string>
     <string name="menu_item_title_github">GitHub</string>
     <string name="menu_item_title_zhihu">知乎</string>
+    <!-- preference -->
 </resources>

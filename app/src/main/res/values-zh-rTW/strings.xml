@@ -3,9 +3,10 @@
     <!-- navigation drawer item -->
     <string name="drawer_item_sync">同步</string>
     <string name="drawer_item_wordcloud">詞雲</string>
-    <string name="drawer_item_theme_switch">主題</string>
     <string name="drawer_item_help">幫助</string>
     <string name="drawer_item_settings">設置</string>
+    <!-- navigation drawer item -->
+
 
     <!-- cancel and ok -->
     <string name="cancel">取消</string>
@@ -16,7 +17,11 @@
     <string name="toggle_drawer_close">Close Drawer</string>
 
 
-    <!-- file list fragment menu -->
+    <!-- file list fragment -->
+    <string name="toast_message_sdcard_unavailable">SD card不可用</string>
+    <string name="list_empty">沒有找到任何文件\n點擊右下角按鈕新建文件</string>
+
+    <!-- menu -->
     <string name="menu_item_search">搜索</string>
 
     <!-- sort options -->
@@ -26,19 +31,18 @@
     <string name="choice_item_title_sort">按標題</string>
 
     <!-- show options -->
-    <string name="menu_item_show_option">查看選項</string>
-    <string name="choice_item_show_digest">顯示摘要</string>
-    <string name="choice_item_show_date">顯示時間</string>
+    <string name="menu_item_display_option">查看選項</string>
+    <string name="choice_item_file_ext">文件後綴</string>
+    <string name="choice_item_file_size">文件大小</string>
 
     <!-- search hint -->
-    <string name="search_hint">輸入關鍵詞搜索</string>
+    <string name="search_hint">搜索文件</string>
 
     <!-- action mode menu -->
-    <string name="action_mode_menu_item_rename">重命名</string>
     <string name="action_mode_menu_item_select_all">全選</string>
     <string name="action_mode_menu_item_delete">刪除</string>
     <string name="dialog_message_delete_files_confirm">要刪除選中的文件嗎？</string>
-    <!-- file list fragment menu -->
+    <!-- file list fragment -->
 
 
     <!-- edit fragment -->
@@ -48,16 +52,20 @@
     <string name="menu_item_preview">預覽</string>
     <string name="menu_item_save">保存</string>
     <string name="menu_item_rename">重命名</string>
+    <string name="menu_item_delete">刪除</string>
     <string name="menu_item_clear_all">清除所有</string>
     <string name="menu_item_docs">Markdown 語法</string>
     <string name="menu_item_statistics">統計</string>
     <string name="menu_item_edit">編輯</string>
+
+    <string name="toast_message_deleted">已刪除</string>
+    <string name="toast_message_delete_error">文件刪除失敗</string>
     <string name="toast_message_cleared">內容已清除</string>
 
     <!-- edit fragment toolbar menu item dialog -->
     <!-- save file -->
     <string name="dialog_title_save_file">保存文件</string>
-    <string name="dialog_et_hint_file_name">文件名</string>
+    <string name="dialog_et_hint_file_name">文件名 文件名</string>
     <string name="dialog_tv_file_extension">.md</string>
     <string name="dialog_btn_save">保存</string>
 
@@ -107,18 +115,6 @@
 
 
     <!-- preference -->
-    <!-- preference key -->
-    <string name="pref_key_language">language</string>
-    <string name="pref_key_drawer_header">drawer_header</string>
-    <string name="pref_key_file_extension">file_extension</string>
-    <string name="pref_key_sync">sync</string>
-    <string name="pref_key_network">network</string>
-    <string name="pref_key_feedback">feedback</string>
-    <string name="pref_key_bug_report">bug_report</string>
-    <string name="pref_key_rating">rating</string>
-    <string name="pref_key_check_update">check_update</string>
-    <string name="pref_key_about">about</string>
-
     <!--preference title and summary-->
     <string name="category_title_display">顯示</string>
     <string name="category_title_storage_sync">存儲與同步</string>
@@ -128,7 +124,7 @@
     <string name="pref_summary_default">默認</string>
     <string name="pref_title_language">語言</string>
     <string name="pref_summary_language">跟隨系統</string>
-    <string name="pref_title_drawer_header">左側導航欄</string>
+    <string name="pref_title_drawer_header">左侧导航栏</string>
     <string name="pref_title_file_extension">文件後綴</string>
     <string name="pref_summary_file_extension">.md</string>
     <string name="pref_title_sync">同步</string>
@@ -143,15 +139,11 @@
     <string name="pref_summary_current_version">當前版本 v1.0</string>
     <string name="pref_title_about">關於</string>
 
-    <string name="mailto">mailto:</string>
-    <string name="issue_page">https://github.com/zeleven/</string>
-    <string name="market_link">market://details?id=</string>
-
     <!-- language list preference item text -->
-    <string name="pref_array_item_device">跟隨系統</string>
-    <string name="pref_array_item_chinese_t">繁體中文</string>
-    <string name="pref_array_item_chinese_s">簡體中文</string>
+    <string name="pref_array_item_auto">跟隨系統</string>
     <string name="pref_array_item_english">英文</string>
+    <string name="pref_array_item_chinese_s">簡體中文</string>
+    <string name="pref_array_item_chinese_t">繁體中文</string>
 
     <!-- sync list preference item text -->
     <string name="pref_array_item_sync_auto">自動同步</string>
@@ -174,4 +166,5 @@
     <string name="menu_item_title_email">Email</string>
     <string name="menu_item_title_github">GitHub</string>
     <string name="menu_item_title_zhihu">知乎</string>
+    <!-- preference -->
 </resources>

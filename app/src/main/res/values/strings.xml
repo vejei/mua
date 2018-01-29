@@ -2,12 +2,14 @@
 <resources>
     <string name="app_name">Mua</string>
 
+
     <!-- navigation drawer item -->
     <string name="drawer_item_sync">同步</string>
     <string name="drawer_item_wordcloud">词云</string>
-    <string name="drawer_item_theme_switch">主题</string>
     <string name="drawer_item_help">帮助</string>
     <string name="drawer_item_settings">设置</string>
+    <!-- navigation drawer item -->
+
 
     <!-- cancel and ok -->
     <string name="cancel">取消</string>
@@ -18,7 +20,11 @@
     <string name="toggle_drawer_close">Close Drawer</string>
 
 
-    <!-- file list fragment menu -->
+    <!-- file list fragment -->
+    <string name="toast_message_sdcard_unavailable">SD card不可用</string>
+    <string name="list_empty">没有找到任何文件\n点击右下角按钮新建文件</string>
+
+    <!-- menu -->
     <string name="menu_item_search">搜索</string>
 
     <!-- sort options -->
@@ -28,19 +34,18 @@
     <string name="choice_item_title_sort">按标题</string>
 
     <!-- show options -->
-    <string name="menu_item_show_option">查看选项</string>
-    <string name="choice_item_show_digest">显示摘要</string>
-    <string name="choice_item_show_date">显示时间</string>
+    <string name="menu_item_display_option">查看选项</string>
+    <string name="choice_item_file_ext">文件后缀</string>
+    <string name="choice_item_file_size">文件大小</string>
 
     <!-- search hint -->
-    <string name="search_hint">输入关键词搜索</string>
+    <string name="search_hint">搜索文件</string>
 
     <!-- action mode menu -->
-    <string name="action_mode_menu_item_rename">重命名</string>
     <string name="action_mode_menu_item_select_all">全选</string>
     <string name="action_mode_menu_item_delete">删除</string>
     <string name="dialog_message_delete_files_confirm">要删除选中的文件吗？</string>
-    <!-- file list fragment menu -->
+    <!-- file list fragment -->
 
 
     <!-- edit fragment -->
@@ -50,10 +55,14 @@
     <string name="menu_item_preview">预览</string>
     <string name="menu_item_save">保存</string>
     <string name="menu_item_rename">重命名</string>
+    <string name="menu_item_delete">删除</string>
     <string name="menu_item_clear_all">清除所有</string>
     <string name="menu_item_docs">Markdown 语法</string>
     <string name="menu_item_statistics">统计</string>
     <string name="menu_item_edit">编辑</string>
+
+    <string name="toast_message_deleted">已删除</string>
+    <string name="toast_message_delete_error">文件删除失败</string>
     <string name="toast_message_cleared">内容已清除</string>
 
     <!-- edit fragment toolbar menu item dialog -->
@@ -150,10 +159,10 @@
     <string name="market_link">market://details?id=</string>
 
     <!-- language list preference item text -->
-    <string name="pref_array_item_device">跟随系统</string>
-    <string name="pref_array_item_chinese_t">繁体中文</string>
-    <string name="pref_array_item_chinese_s">简体中文</string>
+    <string name="pref_array_item_auto">跟随系统</string>
     <string name="pref_array_item_english">英文</string>
+    <string name="pref_array_item_chinese_s">简体中文</string>
+    <string name="pref_array_item_chinese_t">繁体中文</string>
 
     <!-- sync list preference item text -->
     <string name="pref_array_item_sync_auto">自动同步</string>
