@@ -6,12 +6,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
+
+import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
 import butterknife.BindString;
 
@@ -37,8 +37,8 @@ public class SettingsFragment extends BaseFragment {
         private SharedPreferences sharedPref;
 
         @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            addPreferencesFromResource(R.xml.preferences);
+        public void onCreatePreferencesFix(Bundle savedInstanceState, String rootKey) {
+            setPreferencesFromResource(R.xml.preferences, rootKey);
             context = (AppCompatActivity) getContext();
             sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
             settingPreferences();
@@ -71,16 +71,6 @@ public class SettingsFragment extends BaseFragment {
                     }
                 });
             }
-
-            // drawer header image and text setting
-//            Preference drawerHeaderPref = findPreference("drawer_header");
-//            drawerHeaderPref.setOnPreferenceClickListener(
-//                    new Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(Preference preference) {
-//                    return true;
-//                }
-//            });
 
             // file extension setting
             final ListPreference fileExtPref = (ListPreference) findPreference("file_extension");
