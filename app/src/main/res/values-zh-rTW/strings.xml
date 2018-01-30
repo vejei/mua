@@ -124,7 +124,6 @@
     <string name="pref_summary_default">默認</string>
     <string name="pref_title_language">語言</string>
     <string name="pref_summary_language">跟隨系統</string>
-    <string name="pref_title_drawer_header">左侧导航栏</string>
     <string name="pref_title_file_extension">文件後綴</string>
     <string name="pref_summary_file_extension">.md</string>
     <string name="pref_title_sync">同步</string>

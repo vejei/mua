@@ -124,7 +124,6 @@
     <string name="pref_summary_default">Default</string>
     <string name="pref_title_language">Language</string>
     <string name="pref_summary_language">Auto</string>
-    <string name="pref_title_drawer_header">Drawer Header</string>
     <string name="pref_title_file_extension">File extension</string>
     <string name="pref_summary_file_extension">.md</string>
     <string name="pref_title_sync">Sync</string>
