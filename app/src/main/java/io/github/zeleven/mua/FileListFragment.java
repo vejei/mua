@@ -3,6 +3,7 @@ package io.github.zeleven.mua;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -12,11 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +27,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,10 @@ public class FileListFragment extends BaseFragment {
     private String rootPath;
 
     private FilesAdapter adapter;
+    private List<FileEntity> entityList;
+    private List<FileEntity> beforeSearch;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     public int getLayoutId() {
@@ -55,6 +61,7 @@ public class FileListFragment extends BaseFragment {
         toolbarTitle = appName;
         setDisplayHomeAsUpEnabled = false;
         super.initView();
+
         initVar(); // init variable
         setFab(); // set floating action button
         setHasOptionsMenu(true); // set has options menu
@@ -66,6 +73,7 @@ public class FileListFragment extends BaseFragment {
 
     public void initVar() {
         rootPath = root + "/" + appName + "/";
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     /**
@@ -110,10 +118,19 @@ public class FileListFragment extends BaseFragment {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()) {
                     case R.id.sync:
-                        selectedFragment = new SyncFragment();
+//                        selectedFragment = new SyncFragment();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage(R.string.dialog_message_alert_user);
+                        builder.setPositiveButton(R.string.ok,
+                                new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
                         break;
-                    case R.id.word_cloud:
-                        selectedFragment = new WordCloudFragment();
+                    case R.id.theme:
                         break;
                     case R.id.help:
                         selectedFragment = new HelpFragment();
@@ -134,24 +151,23 @@ public class FileListFragment extends BaseFragment {
     }
 
     public void setRecyclerView() {
-        List<File> fileList = null;
         if (StorageHelper.isExternalStorageReadable()) {
-            fileList = FileUtils.listFiles(rootPath);
-            if (fileList.isEmpty()) {
+            entityList = FileUtils.listFiles(rootPath);
+            if (entityList != null && entityList.isEmpty()) {
                 emptyList.setVisibility(View.VISIBLE);
             } else {
                 emptyList.setVisibility(View.GONE);
+                adapter = new FilesAdapter(entityList);
+                fileListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                fileListRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                fileListRecyclerView.addItemDecoration(new DividerItemDecoration(context,
+                        DividerItemDecoration.VERTICAL));
+                fileListRecyclerView.setAdapter(adapter);
             }
         } else {
             Toast.makeText(context, R.string.toast_message_sdcard_unavailable,
                     Toast.LENGTH_SHORT).show();
         }
-        adapter = new FilesAdapter(fileList);
-        fileListRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        fileListRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        fileListRecyclerView.addItemDecoration(new DividerItemDecoration(context,
-                DividerItemDecoration.VERTICAL));
-        fileListRecyclerView.setAdapter(adapter);
     }
 
     public void setSwipeRefreshLayout() {
@@ -159,8 +175,12 @@ public class FileListFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                adapter = new FilesAdapter(FileUtils.listFiles(rootPath));
-                adapter.notifyDataSetChanged();
+                if (entityList != null && adapter != null) {
+                    Toast.makeText(context, entityList.size() + "", Toast.LENGTH_SHORT).show();
+                    entityList.clear();
+                    entityList.addAll(FileUtils.listFiles(rootPath));
+                    adapter.notifyDataSetChanged();
+                }
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -171,11 +191,7 @@ public class FileListFragment extends BaseFragment {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.filelist_fragment_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        SearchManager searchManager = (SearchManager) context.getSystemService
-                (Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(context.getComponentName()));
+        initSearchView(menu);
     }
 
     @Override
@@ -184,11 +200,11 @@ public class FileListFragment extends BaseFragment {
             case R.id.sort:
                 AlertDialog.Builder sortDialog = new AlertDialog.Builder(context);
                 sortDialog.setTitle(R.string.menu_item_sort);
-                sortDialog.setSingleChoiceItems(R.array.sort_options, 0,
+                int sortTypeIndex = sharedPreferences.getInt("SORT_TYPE_INDEX", 0);
+                sortDialog.setSingleChoiceItems(R.array.sort_options, sortTypeIndex,
                         new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
                 sortDialog.setNegativeButton(R.string.cancel,
@@ -198,50 +214,61 @@ public class FileListFragment extends BaseFragment {
                         dialog.cancel();
                     }
                 });
-                sortDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // sort here
-                    }
-                });
                 sortDialog.show();
-                break;
-            case R.id.display_options:
-                AlertDialog.Builder displayOptions = new AlertDialog.Builder(context);
-                displayOptions.setTitle(R.string.menu_item_show_option);
-                boolean checkedItems[] = {true, false};
-                final ArrayList<Integer> selected = new ArrayList<>();
-                displayOptions.setMultiChoiceItems(R.array.show_options, checkedItems,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        if (isChecked) {
-                            selected.add(which);
-                        } else if (selected.contains(which)) {
-                            selected.remove(which);
-                        }
-                    }
-                });
-                displayOptions.setNegativeButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                displayOptions.setPositiveButton(R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-//                        for (int i = 0; i < selected.size(); i++) {
-//
-//                        }
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-                displayOptions.show();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void initSearchView(Menu menu) {
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchManager searchManager = (SearchManager) context.getSystemService
+                (Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(context.getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (!TextUtils.isEmpty(query)) {
+                    // search files
+                    if (StorageHelper.isExternalStorageReadable()) {
+                        beforeSearch = new ArrayList<>(entityList);
+                        new QueryTask(rootPath, query, new QueryTask.Response() {
+                            @Override
+                            public void onTaskFinish(List<FileEntity> entityList) {
+                                FileListFragment.this.entityList.clear();
+                                FileListFragment.this.entityList.addAll(entityList);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }).execute();
+                    } else {
+                        Toast.makeText(context, R.string.toast_message_sdcard_unavailable,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                if (entityList != null && adapter != null && beforeSearch != null) {
+                    entityList.clear();
+                    entityList.addAll(beforeSearch);
+                    adapter.notifyDataSetChanged();
+                }
+                return true;
+            }
+        });
     }
 }
