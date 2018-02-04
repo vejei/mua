@@ -3,12 +3,17 @@
     <string name="app_name">Mua</string>
 
 
+    <!-- navigation drawer -->
     <!-- navigation drawer item -->
     <string name="drawer_item_sync">同步</string>
-    <string name="drawer_item_wordcloud">词云</string>
+    <string name="drawer_item_theme">主题</string>
     <string name="drawer_item_help">帮助</string>
     <string name="drawer_item_settings">设置</string>
     <!-- navigation drawer item -->
+
+    <!-- dialog -->
+    <string name="dialog_message_alert_user">抱歉，暂时不支持同步</string>
+    <!-- navigation drawer -->
 
 
     <!-- cancel and ok -->
@@ -120,8 +125,7 @@
     <!-- preference -->
     <!-- preference key -->
     <string name="pref_key_language">language</string>
-    <string name="pref_key_drawer_header">drawer_header</string>
-    <string name="pref_key_file_extension">file_extension</string>
+    <string name="pref_key_custom_editor">custom_editor</string>
     <string name="pref_key_sync">sync</string>
     <string name="pref_key_network">network</string>
     <string name="pref_key_feedback">feedback</string>
@@ -132,15 +136,15 @@
 
     <!--preference title and summary-->
     <string name="category_title_display">显示</string>
-    <string name="category_title_storage_sync">存储与同步</string>
+    <string name="category_title_editor">编辑器</string>
+    <string name="category_title_storage_sync">同步</string>
     <string name="category_title_feedback">使用反馈</string>
     <string name="category_title_others">其它</string>
 
     <string name="pref_summary_default">默认</string>
     <string name="pref_title_language">语言</string>
     <string name="pref_summary_language">跟随系统</string>
-    <string name="pref_title_file_extension">文件后缀</string>
-    <string name="pref_summary_file_extension">.md</string>
+    <string name="pref_title_custom_editor">自定义工具栏</string>
     <string name="pref_title_sync">同步</string>
     <string name="pref_summary_sync">自动同步</string>
     <string name="pref_title_wifi_sync">仅在WIFI下同步</string>
@@ -167,11 +171,6 @@
     <string name="pref_array_item_sync_auto">自动同步</string>
     <string name="pref_array_item_sync_remind">提醒同步</string>
     <string name="pref_array_item_sync_manual">手动同步</string>
-
-    <!-- file extension list preference item text -->
-    <string name="pref_array_item_dot_md">.md</string>
-    <string name="pref_array_item_dot_markdown">.markdown</string>
-    <string name="pref_array_item_dot_mdown">.mdown</string>
 
     <!--about fragment-->
     <string name="app_describe">开源的Markdown编辑器</string>

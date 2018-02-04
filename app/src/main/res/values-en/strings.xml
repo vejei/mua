@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- navigation drawer -->
     <!-- navigation drawer item -->
     <string name="drawer_item_sync">Sync</string>
-    <string name="drawer_item_wordcloud">Word Cloud</string>
+    <string name="drawer_item_theme">Theme</string>
     <string name="drawer_item_help">Help</string>
     <string name="drawer_item_settings">Settings</string>
     <!-- navigation drawer item -->
+
+    <!-- dialog -->
+    <string name="dialog_message_alert_user">Sorry, synchronization is not supported at this time.</string>
+    <!-- navigation drawer -->
 
 
     <!-- cancel and ok -->
@@ -117,15 +122,15 @@
     <!-- preference -->
     <!--preference title and summary-->
     <string name="category_title_display">Display</string>
-    <string name="category_title_storage_sync">Storage &amp; Sync</string>
+    <string name="category_title_editor">Editor</string>
+    <string name="category_title_storage_sync">Sync</string>
     <string name="category_title_feedback">Feedback</string>
     <string name="category_title_others">Others</string>
 
     <string name="pref_summary_default">Default</string>
     <string name="pref_title_language">Language</string>
     <string name="pref_summary_language">Auto</string>
-    <string name="pref_title_file_extension">File extension</string>
-    <string name="pref_summary_file_extension">.md</string>
+    <string name="pref_title_custom_editor">Custom toolbar</string>
     <string name="pref_title_sync">Sync</string>
     <string name="pref_summary_sync">Auto</string>
     <string name="pref_title_wifi_sync">Only WIFI</string>
@@ -148,11 +153,6 @@
     <string name="pref_array_item_sync_auto">Auto</string>
     <string name="pref_array_item_sync_remind">Remind</string>
     <string name="pref_array_item_sync_manual">Manual</string>
-
-    <!-- file extension list preference item text -->
-    <string name="pref_array_item_dot_md">.md</string>
-    <string name="pref_array_item_dot_markdown">.markdown</string>
-    <string name="pref_array_item_dot_mdown">.mdown</string>
 
     <!--about fragment-->
     <string name="app_describe">Completely open source Markdown editor</string>
