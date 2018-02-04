@@ -102,8 +102,6 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                     LayoutInflater inflater = context.getLayoutInflater();
                     final View view = inflater.inflate(R.layout.dialog_save_file, null);
                     final EditText fileNameET = view.findViewById(R.id.file_name);
-                    TextView fileExtTV = view.findViewById(R.id.file_extension);
-                    fileExtTV.setText(fileExtension);
 
                     saveDialog.setView(view);
                     saveDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -117,7 +115,7 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fileName = fileNameET.getText().toString();
-                            filePath = rootPath + fileName + fileExtension;
+                            filePath = rootPath + fileName + ".md";
                             new SaveFileTask(context, filePath, fileName,
                                     contentInput.getText().toString(), new SaveFileTask.Response() {
                                 @Override
@@ -141,11 +139,9 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                     LayoutInflater inflater = context.getLayoutInflater();
                     View view = inflater.inflate(R.layout.dialog_save_file, null);
                     final EditText fileNameET = view.findViewById(R.id.file_name);
-                    TextView fileExtTV = view.findViewById(R.id.file_extension);
 
                     fileNameET.setText(fileName);
                     fileNameET.setSelection(fileName.length());
-                    fileExtTV.setText(fileExtension);
 
                     renameDialog.setView(view);
                     renameDialog.setNegativeButton(R.string.cancel,
@@ -160,9 +156,9 @@ public class EditFragment extends BaseEditorFragment implements View.OnClickList
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             fileName = fileNameET.getText().toString();
-                            FileUtils.renameFile(new File(filePath),
-                                    new File(rootPath + fileName + fileExtension));
-                            filePath = rootPath + fileName + fileExtension;
+                            FileUtils.renameFile(context, new File(filePath),
+                                    new File(rootPath + fileName + ".md"));
+                            filePath = rootPath + fileName + ".md";
                         }
                     });
                     renameDialog.show();
