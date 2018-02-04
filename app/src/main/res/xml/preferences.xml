@@ -8,21 +8,17 @@
             android:summary="@string/pref_summary_language"
             android:entries="@array/language_list"
             android:entryValues="@array/language_list_value"
-            android:defaultValue="device"/>
+            android:defaultValue="auto"/>
+    </PreferenceCategory>
 
-        <!--<Preference android:key="@string/pref_key_drawer_header"-->
-            <!--android:title="@string/pref_title_drawer_header"-->
-            <!--android:summary="@string/pref_summary_default"/>-->
+    <PreferenceCategory android:title="@string/category_title_editor">
+        <Preference android:key="@string/pref_key_custom_editor"
+            android:title="@string/pref_title_custom_editor"
+            android:enabled="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/category_title_storage_sync"
         android:key="category_storage_sync">
-        <ListPreference android:key="@string/pref_key_file_extension"
-            android:title="@string/pref_title_file_extension"
-            android:summary="@string/pref_summary_file_extension"
-            android:entries="@array/extension_list"
-            android:entryValues="@array/extension_list_value"
-            android:defaultValue="0"/>
         <ListPreference android:key="@string/pref_key_sync"
             android:title="@string/pref_title_sync"
             android:summary="@string/pref_summary_sync"
