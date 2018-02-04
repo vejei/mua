@@ -1,41 +1,107 @@
 package io.github.zeleven.mua;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class FileUtils {
     private static String className = FileUtils.class.getName();
 
     /**
-     * Listing the files from specified file path
+     * Listing the files from specified file path.
      * @param filesPath file path used to list files.
      * @return list which contain files.
      */
-    public static List<File> listFiles(String filesPath) {
+    public static List<FileEntity> listFiles(String filesPath) {
         File file = new File(filesPath);
-        List<File> filesList = null;
-        if (file.exists()) {
-            filesList = Arrays.asList(file.listFiles());
+        if (!file.exists()) {
+            file.mkdirs();
+            return new ArrayList<>();
         }
-        return filesList;
+        final ArrayList<FileEntity> entityList = new ArrayList<>();
+        file.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                boolean isAccept;
+                String fileName = pathname.getName();
+                isAccept = fileName.endsWith(".md") || fileName.endsWith(".markdown")
+                        || fileName.endsWith(".mdown");
+                if (isAccept) {
+                    FileEntity entity = new FileEntity();
+                    entity.setName(pathname.getName());
+                    entity.setLastModified(pathname.lastModified());
+                    entity.setAbsolutePath(pathname.getAbsolutePath());
+                    entityList.add(entity);
+                }
+                return isAccept;
+            }
+        });
+        Collections.sort(entityList, new Comparator<FileEntity>() {
+            @Override
+            public int compare(FileEntity o1, FileEntity o2) {
+                return Long.compare(o2.getLastModified(), o1.getLastModified());
+            }
+        });
+        return entityList;
     }
 
     /**
-     * Create folder according specified file path.
-     * @param filesPath file path used to create folder.
+     * Search files from specified file path
+     * @param filesPath filepath be searched
+     * @param query search key word
+     * @return search result
      */
-    public static void createFolder(String filesPath) {
+    public static List<FileEntity> searchFiles(String filesPath, final String query) {
         File file = new File(filesPath);
-        file.mkdirs();
+        if (!file.exists()) {
+            file.mkdirs();
+            return new ArrayList<>();
+        }
+        final ArrayList<FileEntity> entityList = new ArrayList<>();
+        file.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                boolean isAccept;
+                String fileName = pathname.getName();
+                isAccept = fileName.contains(query) && (fileName.endsWith(".md")
+                        || fileName.endsWith(".markdown") || fileName.endsWith(".mdown"));
+                if (isAccept) {
+                    FileEntity entity = new FileEntity();
+                    entity.setName(pathname.getName());
+                    entity.setLastModified(pathname.lastModified());
+                    entity.setAbsolutePath(pathname.getAbsolutePath());
+                    entityList.add(entity);
+                }
+                return isAccept;
+            }
+        });
+        Collections.sort(entityList, new Comparator<FileEntity>() {
+            @Override
+            public int compare(FileEntity o1, FileEntity o2) {
+                return Long.compare(o2.getLastModified(), o1.getLastModified());
+            }
+        });
+        return entityList;
     }
 
     /**
@@ -66,12 +132,17 @@ public class FileUtils {
      * @param oldFile the file which be renamed.
      * @param newFile target file.
      */
-    public static void renameFile(File oldFile, File newFile) {
-        if (!oldFile.exists() || !newFile.exists()) {
+    public static void renameFile(Context context, File oldFile, File newFile) {
+        if (!oldFile.exists()) {
             Log.i(className, "File not found.");
-            return;
+        } else {
+            if (newFile.exists()) {
+                Toast.makeText(context, R.string.toast_file_name_exists, Toast.LENGTH_SHORT).show();
+            } else {
+                oldFile.renameTo(newFile);
+                Toast.makeText(context, R.string.toast_saved, Toast.LENGTH_SHORT).show();
+            }
         }
-        oldFile.renameTo(newFile);
     }
 
     /**
@@ -103,7 +174,6 @@ public class FileUtils {
 
         // Get position of last '.'.
         int pos = fileName.lastIndexOf(".");
-
         // If there wasn't any '.' just return the string as is.
         if (pos == -1) {
             return fileName;
@@ -114,54 +184,51 @@ public class FileUtils {
     }
 
     /**
-     * Read content from specified file.
-     * @param filePath
+     * Read content from specified path.
+     * @param pathname pathname of file
+     * @param lineBreak indicate whether should include line break in content.
      * @return
      */
-    public static String readContentFromPath(String filePath) {
-        File file = new File(filePath);
+    public static String readContentFromPath(String pathname, boolean lineBreak) {
+        return readContent(new File(pathname), lineBreak);
+    }
+
+    /**
+     * Read content from specified file.
+     * @param file file used to read content.
+     * @param lineBreak indicate whether should include line break in content.
+     * @return
+     */
+    public static String readContentFromFile(File file, boolean lineBreak) {
+        return readContent(file, lineBreak);
+    }
+
+    private static String readContent(File file, boolean lineBreak) {
         StringBuilder content = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
-
             while ((line = br.readLine()) != null) {
                 content.append(line);
-                content.append('\n');
+                if (lineBreak) {
+                    content.append("\n");
+                }
             }
-            br.close();
         } catch (FileNotFoundException e) {
+            Log.e(className, e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            Log.e(className, e.getMessage());
             e.printStackTrace();
         }
         return content.toString();
     }
 
-    public static String readContentFromFile(File file) {
-        StringBuilder textContent = new StringBuilder();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                textContent.append(line);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e(className, e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e(className, e.getMessage());
-        }
-        return textContent.toString();
-    }
-
-    public static void deleteFiles(List<File> fileList) {
-        for (File file : fileList) {
-            deleteFile(file);
-        }
-    }
-
+    /**
+     * delete file
+     * @param file
+     * @return
+     */
     public static boolean deleteFile(File file) {
         boolean result = false;
         if (file.exists()) {
@@ -171,5 +238,16 @@ public class FileUtils {
             Log.i(className, "File not found.");
         }
         return result;
+    }
+
+    public static Date getCreationDate(String filePath) {
+        Path path = Paths.get(filePath);
+        BasicFileAttributes attr = null;
+        try {
+            attr = Files.readAttributes(path, BasicFileAttributes.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Date(attr.creationTime().toMillis());
     }
 }
