@@ -291,7 +291,7 @@ public class EditorAction {
     public void checkDocs() {
         ((AppCompatActivity) context).getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, new MarkdownCheatsheetFragment())
+                .replace(R.id.fragment_container, new HelpFragment())
                 .addToBackStack(null)
                 .commit();
     }
