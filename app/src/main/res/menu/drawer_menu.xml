@@ -3,9 +3,9 @@
     <item android:id="@+id/sync"
         android:icon="@drawable/ic_sync"
         android:title="@string/drawer_item_sync"/>
-    <item android:id="@+id/word_cloud"
-        android:icon="@drawable/ic_cloud"
-        android:title="@string/drawer_item_wordcloud"/>
+    <item android:id="@+id/theme"
+        android:title="@string/drawer_item_theme"
+        android:icon="@drawable/ic_color_lens"/>
     <item android:id="@+id/help"
         android:icon="@drawable/ic_help"
         android:title="@string/drawer_item_help"/>
