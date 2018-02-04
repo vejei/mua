@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
-    private List<File> dataSet;
+    private List<FileEntity> dataSet;
     private AppCompatActivity context;
 
-    public FilesAdapter(List<File> filesList) {
-        dataSet = (filesList == null) ? new ArrayList<File>() : filesList;
+    public FilesAdapter(List<FileEntity> entityList) {
+        dataSet = (entityList == null) ? new ArrayList<FileEntity>() : entityList;
     }
 
     @Override
@@ -34,11 +34,11 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final File file = dataSet.get(position);
-        String fileName = file.getName();
+        final FileEntity entity = dataSet.get(position);
+        String fileName = entity.getName();
         holder.fileName.setText(fileName);
 
-        String content = FileUtils.readContentFromFile(file, false);
+        String content = FileUtils.readContentFromFile(new File(entity.getAbsolutePath()), false);
         if (content.length() == 0) {
             holder.fileContent.setVisibility(View.GONE);
         } else {
@@ -46,7 +46,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
             holder.fileContent.setText(content);
         }
 
-        holder.fileDate.setText(DateUtils.getRelativeTimeSpanString(file.lastModified(),
+        holder.fileDate.setText(DateUtils.getRelativeTimeSpanString(entity.getLastModified(),
                 System.currentTimeMillis(), DateUtils.FORMAT_ABBREV_ALL));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +58,8 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
                 args.putBoolean(Constants.BUNDLE_KEY_SAVED, true);
                 args.putBoolean(Constants.BUNDLE_KEY_FROM_FILE, true);
                 args.putString(Constants.BUNDLE_KEY_FILE_NAME,
-                        FileUtils.stripExtension(file.getName()));
-                args.putString(Constants.BUNDLE_KEY_FILE_PATH, file.getAbsolutePath());
+                        FileUtils.stripExtension(entity.getName()));
+                args.putString(Constants.BUNDLE_KEY_FILE_PATH, entity.getAbsolutePath());
 
                 fragment.setArguments(args);
                 context.getSupportFragmentManager().beginTransaction()
