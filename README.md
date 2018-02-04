@@ -1,5 +1,7 @@
+<p align="center"><img alt="logo" src="https://github.com/zeleven/mua/blob/master/app/src/main/ic_launcher_round-web.png" width="256" height="256"></p>
+
 # Mua
-An open source markdown editro for Android.
+An open source markdown editor for Android.
 
 ## Features
 * Multi-language support
