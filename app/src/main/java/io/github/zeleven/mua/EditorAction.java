@@ -255,32 +255,9 @@ public class EditorAction {
     /**
      * Rename file.
      */
-    public String rename(final String rootPath, final String fileName) {
-        AlertDialog.Builder saveDialog = new AlertDialog.Builder(context);
-        saveDialog.setTitle(R.string.dialog_title_rename_file);
-
-        LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
-        final View view = inflater.inflate(R.layout.dialog_save_file, null);
-        final EditText fileNameET = view.findViewById(R.id.file_name);
-        fileNameET.setText(fileName);
-
-        saveDialog.setView(view);
-        saveDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        saveDialog.setPositiveButton("重命名", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                FileUtils.renameFile(new File(rootPath + fileName),
-                        new File(rootPath + fileNameET.getText().toString()));
-            }
-        });
-        saveDialog.show();
-        return rootPath + fileNameET.getText().toString();
-    }
+//    public String rename(String rootPath, String fileName) {
+//
+//    }
 
     /**
      * Clear text in component.
