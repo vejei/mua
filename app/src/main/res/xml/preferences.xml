@@ -36,12 +36,7 @@
     <PreferenceCategory android:title="@string/category_title_feedback"
         android:key="category_feedback">
         <Preference android:key="@string/pref_key_feedback"
-            android:title="@string/pref_title_feedback">
-            <intent android:action="android.intent.action.VIEW" android:data="@string/mailto">
-                <extra android:name="android.intent.extra.SUBJECT"
-                    android:value="@string/pref_title_feedback"/>
-            </intent>
-        </Preference>
+            android:title="@string/pref_title_feedback"/>
         <Preference app:key="@string/pref_key_bug_report"
             android:title="@string/pref_title_bug_report">
             <intent android:action="android.intent.action.VIEW" android:data="@string/issue_page"/>
@@ -51,9 +46,7 @@
     <PreferenceCategory android:title="@string/category_title_others"
         android:key="category_others">
         <Preference android:key="@string/pref_key_rating"
-            android:title="@string/pref_title_rate">
-            <intent android:action="android.intent.action.VIEW" android:data="@string/market_link"/>
-        </Preference>
+            android:title="@string/pref_title_rate"/>
         <Preference app:key="@string/pref_key_check_update"
             android:title="@string/pref_title_check_update"
             android:summary="@string/pref_summary_current_version"/>
