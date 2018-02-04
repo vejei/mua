@@ -28,7 +28,7 @@ public class SettingsFragment extends BaseFragment {
         toolbarTitle = TITLE;
         super.initView();
         getFragmentManager().beginTransaction()
-                .add(R.id.pref_container, new PreferenceFragmentCustom())
+                .add(R.id.pref_container, new PreferenceFragmentCustom(), "preference")
                 .commit();
     }
 
