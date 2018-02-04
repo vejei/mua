@@ -37,3 +37,6 @@ An open source markdown editor for Android.
 <p float="left">
   <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-09-14.png" width="240">
 </p>
+
+## License
+Under MIT license, check the [license file](https://github.com/zeleven/mua/blob/master/LICENSE) for more detail.
