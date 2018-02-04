@@ -157,9 +157,7 @@
     <string name="pref_summary_current_version">当前版本 v1.0</string>
     <string name="pref_title_about">关于</string>
 
-    <string name="mailto">mailto:</string>
-    <string name="issue_page">https://github.com/zeleven/</string>
-    <string name="market_link">market://details?id=</string>
+    <string name="issue_page">https://github.com/zeleven/mua/issues</string>
 
     <!-- language list preference item text -->
     <string name="pref_array_item_auto">跟随系统</string>
