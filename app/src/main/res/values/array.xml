@@ -8,7 +8,7 @@
         <item>@string/pref_array_item_chinese_t</item>
     </string-array>
     <string-array name="language_list_value">
-        <item>device</item>
+        <item>auto</item>
         <item>en</item>
         <item>zh_CN</item>
         <item>zh_TW</item>
@@ -24,17 +24,6 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-
-    <string-array name="extension_list">
-        <item>@string/pref_array_item_dot_md</item>
-        <item>@string/pref_array_item_dot_markdown</item>
-        <item>@string/pref_array_item_dot_mdown</item>
-    </string-array>
-    <string-array name="extension_list_value">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
     
     <!--toolbar menu item array-->
     <string-array name="sort_options">
@@ -44,6 +33,6 @@
     </string-array>
     <string-array name="display_options">
         <item>@string/choice_item_file_ext</item>
-        <item>@string/choice_item_file_ext</item>
+        <item>@string/choice_item_file_size</item>
     </string-array>
 </resources>
