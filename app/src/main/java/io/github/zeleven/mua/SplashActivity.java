@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        AlphaAnimation animation = new AlphaAnimation(0.0f , 1.0f ) ;
+        AlphaAnimation animation = new AlphaAnimation(0.0f , 1.0f );
         animation.setFillAfter(true);
         animation.setDuration(1000);
         splashLayout.startAnimation(animation);
