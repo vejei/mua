@@ -13,10 +13,14 @@ An open source markdown editor for Android.
 * Under MIT license
 
 ## Dependencies
+### Java
 * [Butter Knife](https://github.com/JakeWharton/butterknife)
 * [EventBus](https://github.com/greenrobot/EventBus)
 * [BottomSheet](https://github.com/Flipboard/bottomsheet)
 * [Android Support library - preference v7 bugfix](https://github.com/Gericop/Android-Support-Preference-V7-Fix)
+
+### JavaScript
+* [marked](https://github.com/chjj/marked)
 
 ## Screenshots
 <p float="left">
