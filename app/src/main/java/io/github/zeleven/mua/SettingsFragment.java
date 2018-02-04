@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.ListPreference;
@@ -72,24 +73,6 @@ public class SettingsFragment extends BaseFragment {
                 });
             }
 
-            // file extension setting
-            final ListPreference fileExtPref = (ListPreference) findPreference("file_extension");
-            if (fileExtPref != null) {
-                int index = fileExtPref.findIndexOfValue(sharedPref.getString("file_extension", ""));
-                final CharSequence[] entries = fileExtPref.getEntries();
-                fileExtPref.setSummary(entries[index]);
-                fileExtPref.setOnPreferenceChangeListener(
-                        new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        editor.putString("file_extension", (String) newValue).commit();
-                        int newIndex = fileExtPref.findIndexOfValue((String) newValue);
-                        fileExtPref.setSummary(entries[newIndex]);
-                        return true;
-                    }
-                });
-            }
-
             // sync options setting
 //            final ListPreference syncPref = (ListPreference) findPreference("sync");
 //            if (syncPref != null) {
@@ -149,6 +132,43 @@ public class SettingsFragment extends BaseFragment {
             String appVersionText = getResources().getString(R.string.app_version_text);
             versionPref.setSummary(appVersionText + " " + versionName
                     + " ( " + versionCode + " ) ");
+
+            // feedback
+            Preference feedbackPref = findPreference("feedback");
+            feedbackPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setData(Uri.parse("mailto:" + Constants.MY_EMAIL));
+                    String subject = getResources().getString(R.string.pref_title_feedback);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
+            // App rating
+            Preference ratingPref = findPreference("rating");
+            ratingPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    String packageName = context.getPackageName();
+                    intent.setData(Uri.parse("market://details?id=" + packageName));
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
+            // check update
+            Preference updatePref = findPreference("check_update");
+            updatePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    // check update
+                    return false;
+                }
+            });
 
             // About preference setting, open AboutFragment on preference click
             Preference aboutPref = findPreference("about");
