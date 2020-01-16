@@ -1,4 +1,4 @@
-<p align="center"><img alt="logo" src="https://github.com/zeleven/mua/blob/master/app/src/main/ic_launcher_round-web.png" width="256" height="256"></p>
+<p align="center"><img alt="logo" src="./app/src/main/ic_launcher_round-web.png" width="256" height="256"></p>
 
 # Mua
 An open source markdown editor for Android.
@@ -24,22 +24,22 @@ An open source markdown editor for Android.
 
 ## Screenshots
 <p float="left">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-20-59-05.png" width="240">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-20-59-15.png" width="240">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-20-59-25.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-20-59-05.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-20-59-15.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-20-59-25.png" width="240">
 </p>
 <p float="left">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-00-14.png" width="240">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-00-17.png" width="240">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-00-21.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-00-14.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-00-17.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-00-21.png" width="240">
 </p>
 <p float="left">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-00-32.png" width="240">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-07-44.png" width="240">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-08-42.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-00-32.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-07-44.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-08-42.png" width="240">
 </p>
 <p float="left">
-  <img src="https://github.com/zeleven/mua/blob/master/screenshots/Screenshot_2018-02-04-21-09-14.png" width="240">
+  <img src="./screenshots/Screenshot_2018-02-04-21-09-14.png" width="240">
 </p>
 
 ## License
